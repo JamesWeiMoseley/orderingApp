@@ -1,10 +1,19 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { View, Text, Button } from "react-native";
 
-function HomeScreen() {
+function HomeScreen(props) {
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <Text>Home Screen yeah</Text>
+      <Text>Home Screen</Text>
+      <Text>Are you a:</Text>
+      <Button
+        onPress={() => props.navigation.navigate("Restaurant")}
+        title="Restaurant"
+      ></Button>
+      <Button
+        onPress={() => props.navigation.navigate("User")}
+        title="User"
+      ></Button>
     </View>
   );
 }

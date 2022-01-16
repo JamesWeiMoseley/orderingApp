@@ -11,7 +11,11 @@ function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen
+          name="Home"
+          component={HomeScreen}
+          options={{ title: "Online Food Ordering App" }}
+        />
         <Stack.Screen name="User" component={UserScreen} />
         <Stack.Screen name="Restaurant" component={Restaurant} />
       </Stack.Navigator>
