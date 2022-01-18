@@ -16,6 +16,7 @@ function App() {
           component={HomeScreen}
           options={{ title: "Online Food Ordering App" }}
         />
+        {/* add new screens here */}
         <Stack.Screen name="User" component={UserScreen} />
         <Stack.Screen name="Restaurant" component={Restaurant} />
       </Stack.Navigator>
