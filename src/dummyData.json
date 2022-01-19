@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "title": "test restaurant",
+    "type": "mexican"
+  },
+  {
+    "id": 2,
+    "title": "Pizza Hut",
+    "type": "pizza place "
+  },
+  {
+    "id": 3,
+    "title": "Burger King",
+    "type": "burger place "
+  },
+  {
+    "id": 4,
+    "title": "Cheesecake factory",
+    "type": "fancy American"
+  }
+]
