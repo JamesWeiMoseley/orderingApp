@@ -1,7 +1,7 @@
 [
   {
     "id": 1,
-    "title": "test restaurant",
+    "title": "Pollo Loco",
     "type": "mexican"
   },
   {
@@ -18,5 +18,20 @@
     "id": 4,
     "title": "Cheesecake factory",
     "type": "fancy American"
+  },
+  {
+    "id": 5,
+    "title": "OutBack Steakhouse",
+    "type": "Steakhouse"
+  },
+  {
+    "id": 6,
+    "title": "Taco Lita",
+    "type": "Mexican"
+  },
+  {
+    "id": 7,
+    "title": "Panda Express",
+    "type": "Asian Fusion"
   }
 ]

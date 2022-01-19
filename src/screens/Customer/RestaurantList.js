@@ -1,25 +1,37 @@
 import React from "react";
-import { View, FlatList, Text } from "react-native";
+import { SafeAreaView, FlatList, Text, View } from "react-native";
 import Data from "../../dummyData.json";
 import tw from "tailwind-react-native-classnames";
 
+const Item = ({ title, type }) => (
+  <View style={tw`p-5 border-solid border-2`}>
+    <Text style={tw`text-4xl text-blue-500`}>{title}</Text>
+    <Text style={tw`text-2xl`}>{type}</Text>
+  </View>
+);
+
 const RestaurantList = () => {
   return (
-    <View>
-      <Text>Available to Order From</Text>
-      <Text>asdf</Text>
+    <SafeAreaView style={tw`flex-1`}>
+      <Text style={tw`text-4xl p-10`}>Available to Order From</Text>
       <FlatList
         data={Data}
         renderItem={({ item }) => {
-          return (
-            <Text style={tw`text-4xl`}>
-              {item.title} {item.type}
-            </Text>
-          );
+          return <Item title={item.title} type={item.type} />;
         }}
+        keyExtractor={(item) => item.id}
       ></FlatList>
-    </View>
+    </SafeAreaView>
   );
 };
 
 export default RestaurantList;
+
+{
+  /* <FlatList
+        data={Data}
+        renderItem={({ item }) => {
+          <Item title={item.title} />;
+        }}
+      ></FlatList> */
+}
