@@ -6,6 +6,7 @@ import HomeScreen from "./src/screens/Home";
 import UserScreen from "./src/screens/User";
 import Signup from "./src/screens/Signup";
 import RestaurantList from "./src/screens/Customer/RestaurantList";
+import ViewRes from "./src/screens/Customer/ViewRes";
 
 const Stack = createNativeStackNavigator();
 
@@ -23,6 +24,7 @@ function App() {
         <Stack.Screen name="Restaurant" component={Restaurant} />
         <Stack.Screen name="Signup" component={Signup} />
         <Stack.Screen name="List" component={RestaurantList} />
+        <Stack.Screen name="View" component={ViewRes} />
       </Stack.Navigator>
     </NavigationContainer>
   );

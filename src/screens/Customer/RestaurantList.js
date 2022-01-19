@@ -1,5 +1,11 @@
 import React from "react";
-import { SafeAreaView, FlatList, Text, View } from "react-native";
+import {
+  SafeAreaView,
+  FlatList,
+  Text,
+  View,
+  TouchableOpacity,
+} from "react-native";
 import Data from "../../dummyData.json";
 import tw from "tailwind-react-native-classnames";
 
@@ -10,14 +16,20 @@ const Item = ({ title, type }) => (
   </View>
 );
 
-const RestaurantList = () => {
+const RestaurantList = (props) => {
   return (
     <SafeAreaView style={tw`flex-1`}>
       <Text style={tw`text-4xl p-10`}>Available to Order From</Text>
       <FlatList
         data={Data}
         renderItem={({ item }) => {
-          return <Item title={item.title} type={item.type} />;
+          return (
+            <TouchableOpacity
+              onPress={() => props.navigation.navigate("View", item)}
+            >
+              <Item title={item.title} type={item.type} />
+            </TouchableOpacity>
+          );
         }}
         keyExtractor={(item) => item.id}
       ></FlatList>
@@ -26,12 +38,3 @@ const RestaurantList = () => {
 };
 
 export default RestaurantList;
-
-{
-  /* <FlatList
-        data={Data}
-        renderItem={({ item }) => {
-          <Item title={item.title} />;
-        }}
-      ></FlatList> */
-}
