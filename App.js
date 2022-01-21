@@ -1,6 +1,11 @@
 import * as React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+
+import Amplify from "aws-amplify";
+import awsconfig from "./src/aws-exports";
+Amplify.configure(awsconfig);
+
 import Restaurant from "./src/screens/restaurant";
 import HomeScreen from "./src/screens/Home";
 import UserScreen from "./src/screens/User";
