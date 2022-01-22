@@ -10,7 +10,8 @@
     "eject": "expo eject"
   },
   "dependencies": {
-    "@react-native-async-storage/async-storage": "^1.15.15",
+    "@react-native-async-storage/async-storage": "^1.15.16",
+    "@react-native-community/masked-view": "^0.1.11",
     "@react-native-community/netinfo": "^7.1.7",
     "@react-native-picker/picker": "^2.2.1",
     "@react-navigation/native": "^6.0.6",
@@ -22,10 +23,13 @@
     "expo-status-bar": "~1.2.0",
     "react": "17.0.1",
     "react-dom": "17.0.1",
-    "react-native": "0.64.3",
-    "react-native-safe-area-context": "3.3.2",
-    "react-native-screens": "~3.10.1",
+    "react-native": "^0.67.1",
+    "react-native-gesture-handler": "^2.2.0",
+    "react-native-reanimated": "^2.3.1",
+    "react-native-safe-area-context": "^3.3.2",
+    "react-native-screens": "^3.10.2",
     "react-native-web": "0.17.1",
+    "react-navigation": "^4.4.4",
     "tailwind-react-native-classnames": "^1.5.1"
   },
   "devDependencies": {
