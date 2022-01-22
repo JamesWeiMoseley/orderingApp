@@ -2,6 +2,8 @@ import React from "react";
 import { View, Text, Button } from "react-native";
 import tw from "tailwind-react-native-classnames";
 
+// import { withAuthenticator } from "aws-amplify-react-native";
+
 function Signup(props) {
   return (
     <View style={{ flex: 1, alignItems: "center" }}>
