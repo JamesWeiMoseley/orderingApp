@@ -12,8 +12,8 @@ function Signup(props) {
         title="Restaurant"
       ></Button>
       <Button
-        onPress={() => props.navigation.navigate("User")}
-        title="User"
+        onPress={() => props.navigation.navigate("Customer")}
+        title="Customer"
       ></Button>
     </View>
   );
