@@ -7,26 +7,31 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 function HomeScreen(props) {
   const [name, setName] = useState("");
+  // const [haveUser, setHaveUser] = useState(false);
 
   useEffect(() => {
     checkUser();
     async function checkUser() {
-      const user = await Auth.currentAuthenticatedUser();
-      console.log(user.username);
-      setName(user.username);
+      try {
+        const user = await Auth.currentAuthenticatedUser();
+        setName(user.username);
+      } catch (error) {
+        console.log("no user");
+      }
     }
   }, []);
 
   async function signOut() {
     try {
       await Auth.signOut();
-      props.navigation.navigate("Home");
+      setName("");
     } catch (error) {
       console.log("error signing out: ", error);
     }
   }
   return (
-    <View style={tw`bg-white h-full`}>
+    <View style={tw`bg-white h-full w-full`}>
+      <Text>{name}</Text>
       <SafeAreaView style={tw`items-center`}>
         <Text style={tw`text-2xl p-10`}>Home Screen </Text>
         {name ? <Text style={tw`text-xl`}>Welcome in {name}</Text> : null}
