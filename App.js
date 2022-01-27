@@ -27,13 +27,20 @@ function App() {
         <Stack.Screen
           name="Home"
           component={HomeScreen}
-          options={{ title: "Online Food Ordering App" }}
+          options={{
+            headerLeft: () => null,
+            title: "Online Food Ordering App",
+          }}
         />
         {/* add new screens here */}
         <Stack.Screen
           name="Portal"
           component={Portal}
-          options={{ headerLeft: (props) => null, title: "User Portal" }}
+          options={{
+            headerLeft: () => null,
+            // headerLeft: null,
+            title: "User Portal",
+          }}
         />
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="User" component={UserScreen} />

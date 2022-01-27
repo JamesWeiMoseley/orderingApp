@@ -9,17 +9,22 @@ function HomeScreen(props) {
   const [name, setName] = useState("");
   // const [haveUser, setHaveUser] = useState(false);
 
-  useEffect(() => {
-    checkUser();
-    async function checkUser() {
-      try {
-        const user = await Auth.currentAuthenticatedUser();
-        setName(user.username);
-      } catch (error) {
-        console.log("no user");
-      }
+  async function checkUser() {
+    try {
+      const user = await Auth.currentAuthenticatedUser();
+      setName(user.username);
+    } catch (error) {
+      console.log("no user");
     }
-  }, []);
+  }
+
+  useEffect(() => {
+    console.log("useeffect is working");
+    const unsub = props.navigation.addListener("focus", () => {
+      checkUser();
+    });
+    return unsub;
+  }, [props.navigation]);
 
   async function signOut() {
     try {

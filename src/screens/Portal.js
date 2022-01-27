@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, Button } from "react-native";
+import { View, Text, Button, BackHandler } from "react-native";
 import tw from "tailwind-react-native-classnames";
 import { Auth, Hub } from "aws-amplify";
 
@@ -8,15 +8,15 @@ import { Auth, Hub } from "aws-amplify";
 function Portal(props) {
   const [name, setName] = useState("");
 
-  async function signOut() {
-    try {
-      await Auth.signOut();
-      setName("");
-      props.navigation.navigate("Home");
-    } catch (error) {
-      console.log("error signing out: ", error);
-    }
-  }
+  // async function signOut() {
+  //   try {
+  //     await Auth.signOut();
+  //     setName("");
+  //     props.navigation.navigate("Home");
+  //   } catch (error) {
+  //     console.log("error signing out: ", error);
+  //   }
+  // }
 
   useEffect(() => {
     checkUser();
@@ -31,7 +31,10 @@ function Portal(props) {
     <View style={{ flex: 1, alignItems: "center" }}>
       <Text style={tw`text-2xl pt-10`}>Hello {name}</Text>
       <View style={tw`p-10`}>
-        <Button title="Log Out" onPress={signOut}></Button>
+        <Button
+          title="Back to Home"
+          onPress={() => props.navigation.navigate("Home")}
+        ></Button>
       </View>
     </View>
   );

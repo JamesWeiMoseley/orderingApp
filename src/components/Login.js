@@ -6,11 +6,13 @@ import tw from "tailwind-react-native-classnames";
 function Login(props) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [clicked, setClicked] = useState(false);
 
   async function signIn() {
+    console.log(props);
     try {
       const user = await Auth.signIn(username, password);
-      setUsername("");
+      // setUsername("");
       setPassword("");
       props.navigation.navigate("Portal");
     } catch (error) {
