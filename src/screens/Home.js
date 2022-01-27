@@ -55,6 +55,10 @@ function HomeScreen(props) {
           {name ? <Button onPress={signOut} title="Log Out"></Button> : null}
         </View>
       </SafeAreaView>
+      <Button
+        title="View Available Restaurants"
+        onPress={() => props.navigation.navigate("List")}
+      />
     </View>
   );
 }
