@@ -10,14 +10,10 @@
     "eject": "expo eject"
   },
   "dependencies": {
-<<<<<<< HEAD
     "@react-native-async-storage/async-storage": "^1.15.16",
     "@react-native-community/masked-view": "^0.1.11",
     "@react-native-community/netinfo": "^7.1.7",
     "@react-native-picker/picker": "^2.2.1",
-=======
-    "@aws-amplify/cli": "^7.6.11",
->>>>>>> 80609ba910c4bcae9f63d6c076c12f1314da7e33
     "@react-navigation/native": "^6.0.6",
     "@react-navigation/native-stack": "^6.2.5",
     "@react-navigation/stack": "^6.0.11",

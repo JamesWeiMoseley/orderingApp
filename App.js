@@ -33,7 +33,12 @@ function App() {
           }}
         />
         {/* add new screens here */}
-
+        <Stack.Screen
+          name="Portal"
+          component={Portal}
+          options={{ headerLeft: (props) => null, title: "User Portal" }}
+        />
+        <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Customer" component={UserScreen} />
         <Stack.Screen name="Restaurant" component={Restaurant} />
         <Stack.Screen name="Signup" component={Signup} />
