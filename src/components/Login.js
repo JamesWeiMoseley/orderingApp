@@ -9,7 +9,6 @@ function Login(props) {
   const [clicked, setClicked] = useState(false);
 
   async function signIn() {
-    console.log(props);
     try {
       const user = await Auth.signIn(username, password);
       // setUsername("");
