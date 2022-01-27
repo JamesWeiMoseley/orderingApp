@@ -9,7 +9,15 @@ function Signup(props) {
   return (
     <View style={{ flex: 1, alignItems: "center" }}>
       <Text style={tw`text-2xl pt-10`}>Lets Get Started</Text>
-      <MakeAccount />
+      <Text style={tw`text-2xl p-10`}>Are you a:</Text>
+      <Button
+        onPress={() => props.navigation.navigate("Restaurant")}
+        title="Restaurant"
+      ></Button>
+      <Button
+        onPress={() => props.navigation.navigate("Customer")}
+        title="Customer"
+      ></Button>
     </View>
   );
 }

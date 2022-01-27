@@ -11,7 +11,7 @@ Amplify.configure(awsconfig);
 // screens
 import Restaurant from "./src/screens/restaurant";
 import HomeScreen from "./src/screens/Home";
-import UserScreen from "./src/screens/User";
+import UserScreen from "./src/screens/Customer";
 import Signup from "./src/screens/Signup";
 import RestaurantList from "./src/screens/Customer/RestaurantList";
 import ViewRes from "./src/screens/Customer/ViewRes";
@@ -33,17 +33,8 @@ function App() {
           }}
         />
         {/* add new screens here */}
-        <Stack.Screen
-          name="Portal"
-          component={Portal}
-          options={{
-            headerLeft: () => null,
-            // headerLeft: null,
-            title: "User Portal",
-          }}
-        />
-        <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="User" component={UserScreen} />
+
+        <Stack.Screen name="Customer" component={UserScreen} />
         <Stack.Screen name="Restaurant" component={Restaurant} />
         <Stack.Screen name="Signup" component={Signup} />
         <Stack.Screen name="List" component={RestaurantList} />
