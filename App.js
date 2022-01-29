@@ -3,9 +3,9 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 // aws stuff
-// import Amplify from "aws-amplify";
-// import awsconfig from "./src/aws-exports";
-// Amplify.configure(awsconfig);
+import Amplify from "aws-amplify";
+import awsconfig from "./src/aws-exports";
+Amplify.configure(awsconfig);
 // import { withAuthenticator } from "aws-amplify-react-native";
 
 // screens
