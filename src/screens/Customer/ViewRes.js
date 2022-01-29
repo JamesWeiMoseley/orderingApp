@@ -26,9 +26,11 @@ const ViewRes = (props) => {
               key={`lunch-${index}`}
             >
               <View>
+              <TouchableOpacity>
                 <Text>
                   {item} {' '} {props?.route.params.price[item]}
                 </Text>
+                </TouchableOpacity>
               </View>
             </View>
           )
