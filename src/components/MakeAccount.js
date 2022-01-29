@@ -20,6 +20,7 @@ function MakeAccount(props) {
           // other custom attributes
         },
       });
+      props.navigation.navigate("Verify");
       console.log(user);
     } catch (error) {
       //   console.log("error signing up:");

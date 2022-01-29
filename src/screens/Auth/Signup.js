@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, Button } from "react-native";
 import tw from "tailwind-react-native-classnames";
-import MakeAccount from "../components/MakeAccount";
+import MakeAccount from "../../components/MakeAccount";
 
 // import { withAuthenticator } from "aws-amplify-react-native";
 

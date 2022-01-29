@@ -12,11 +12,12 @@ Amplify.configure(awsconfig);
 import Restaurant from "./src/screens/restaurant";
 import HomeScreen from "./src/screens/Home";
 import UserScreen from "./src/screens/Customer";
-import Signup from "./src/screens/Signup";
+import Signup from "./src/screens/Auth/Signup";
 import RestaurantList from "./src/screens/Customer/RestaurantList";
 import ViewRes from "./src/screens/Customer/ViewRes";
 import Login from "./src/components/Login";
 import Portal from "./src/screens/Portal";
+import Verify from "./src/screens/Auth/Verify";
 
 const Stack = createNativeStackNavigator();
 
@@ -44,6 +45,7 @@ function App() {
         <Stack.Screen name="Signup" component={Signup} />
         <Stack.Screen name="List" component={RestaurantList} />
         <Stack.Screen name="View" component={ViewRes} />
+        <Stack.Screen name="Verify" component={Verify} />
       </Stack.Navigator>
     </NavigationContainer>
   );

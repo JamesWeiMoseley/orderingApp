@@ -51,7 +51,7 @@ function HomeScreen(props) {
             />
           ) : null}
         </View>
-        <View>
+        <View style={tw`pb-10`}>
           {name ? <Button onPress={signOut} title="Log Out"></Button> : null}
         </View>
       </SafeAreaView>
