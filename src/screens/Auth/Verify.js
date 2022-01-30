@@ -18,6 +18,7 @@ function Verify(props) {
   async function confirmSignUp() {
     try {
       await Auth.confirmSignUp(username, code);
+      props.navigation.navigate("Home");
       Alert.alert("Code sent do your email");
     } catch (error) {
       Alert.alert("Code is Wrong Try Again");

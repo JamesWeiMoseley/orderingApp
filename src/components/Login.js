@@ -22,10 +22,10 @@ function Login(props) {
 
   return (
     <View>
-      <View style={tw`p-5`}>
+      <View style={tw`pt-5 pb-5`}>
         <Text>Username</Text>
         <TextInput
-          style={tw`border-solid border-2 text-2xl`}
+          style={tw`border-solid border-2 text-2xl w-full`}
           onChangeText={(username) => setUsername(username)}
           value={username}
         ></TextInput>
@@ -38,7 +38,7 @@ function Login(props) {
         ></TextInput>
       </View>
       <Button onPress={signIn} title="Login"></Button>
-      <View style={tw`p-10`}>
+      <View style={tw`pt-10 pb-5`}>
         <Button
           onPress={() => props.navigation.navigate("Signup")}
           title="Signup"

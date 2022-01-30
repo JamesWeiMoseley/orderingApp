@@ -7,29 +7,25 @@ import { Auth, Hub } from "aws-amplify";
 
 function Portal(props) {
   const [name, setName] = useState("");
-
-  // async function signOut() {
-  //   try {
-  //     await Auth.signOut();
-  //     setName("");
-  //     props.navigation.navigate("Home");
-  //   } catch (error) {
-  //     console.log("error signing out: ", error);
-  //   }
-  // }
+  const [type, setType] = useState("");
+  const [email, setEmail] = useState("");
 
   useEffect(() => {
     checkUser();
     async function checkUser() {
       const user = await Auth.currentAuthenticatedUser();
       // console.log({ user });
+      setEmail(user.attributes.email);
       setName(user.username);
+      setType(user.attributes.locale);
     }
   }, []);
 
   return (
     <View style={{ flex: 1, alignItems: "center" }}>
       <Text style={tw`text-2xl pt-10`}>Hello {name}</Text>
+      <Text style={tw`text-2xl pt-10`}>{email}</Text>
+      <Text style={tw`text-2xl pt-10`}>You are a {type}</Text>
       <View style={tw`p-10`}>
         <Button
           title="Back to Home"
