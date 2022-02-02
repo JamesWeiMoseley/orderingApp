@@ -27,8 +27,8 @@ function MakeAccount(props) {
           locale,
         },
       });
+      Alert.alert("Code sent to your email");
       props.navigation.navigate("Verify");
-      console.log(user);
     } catch (error) {
       console.log("error signing up:", error);
       Alert.alert("One or more of the fields is missing");
@@ -37,7 +37,9 @@ function MakeAccount(props) {
 
   return (
     <View style={tw`flex-1 p-5`}>
-      <Text style={tw`text-2xl p-10`}>First we make an account</Text>
+      <Text style={tw`text-2xl p-5 text-center text-red-300`}>
+        First we make an account
+      </Text>
       <Text>Username</Text>
       <TextInput
         onChangeText={(username) => setUsername(username)}
