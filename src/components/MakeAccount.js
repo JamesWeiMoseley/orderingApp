@@ -8,7 +8,6 @@ function MakeAccount(props) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
-  const [phone_number, setPhone] = useState("");
 
   const [open, setOpen] = useState(false);
   const [locale, setType] = useState(null);
@@ -24,17 +23,15 @@ function MakeAccount(props) {
         password,
         attributes: {
           email, // optional
-          phone_number,
           // "custom:Type": type,
           locale,
         },
       });
+      props.navigation.navigate("Verify");
       console.log(user);
     } catch (error) {
-      console.log("error signing up:");
+      console.log("error signing up:", error);
       Alert.alert("One or more of the fields is missing");
-    } finally {
-      props.navigation.navigate("Verify");
     }
   }
 
@@ -46,7 +43,7 @@ function MakeAccount(props) {
         onChangeText={(username) => setUsername(username)}
         style={tw`border-solid border-2 text-2xl`}
       ></TextInput>
-      <Text>Password</Text>
+      <Text>Password (at least 8 characters)</Text>
       <TextInput
         secureTextEntry={true}
         onChangeText={(password) => setPassword(password)}
@@ -57,11 +54,7 @@ function MakeAccount(props) {
         onChangeText={(email) => setEmail(email)}
         style={tw`border-solid border-2 text-2xl`}
       ></TextInput>
-      {/* <Text>Phone (Optional)</Text>
-      <TextInput
-        onChangeText={(phone_number) => setPhone(phone_number)}
-        style={tw`border-solid border-2 text-2xl`}
-      ></TextInput> */}
+
       <Text>You are (Choose One):</Text>
       <DropDownPicker
         style={tw`border-solid border-2 text-2xl`}
@@ -72,11 +65,7 @@ function MakeAccount(props) {
         setValue={setType}
         setItems={setItems}
       />
-      {/* <Text>Type</Text>
-      <TextInput
-        onChangeText={(type) => setType(type)}
-        style={tw`border-solid border-2 text-2xl`}
-      ></TextInput> */}
+
       <View style={tw`pt-20`}>
         <Button onPress={signUp} title="Make An Account"></Button>
       </View>

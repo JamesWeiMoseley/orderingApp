@@ -9,7 +9,7 @@ function Signup(props) {
   return (
     <View style={{ flex: 1, alignItems: "center" }}>
       <Text style={tw`text-2xl pt-10`}>Lets Get Started</Text>
-      <MakeAccount />
+      <MakeAccount navigation={props.navigation} route={props.route} />
     </View>
   );
 }
