@@ -19,7 +19,7 @@ function Verify(props) {
     try {
       await Auth.confirmSignUp(username, code);
       props.navigation.navigate("Home");
-      Alert.alert("Code sent do your email");
+      Alert.alert("Verified! You can now login.");
     } catch (error) {
       Alert.alert("Code is Wrong Try Again");
       console.log("error confirming sign up");
@@ -40,6 +40,9 @@ function Verify(props) {
   return (
     <View style={{ flex: 1, alignItems: "center" }}>
       <Text style={tw`text-2xl pt-10`}>Get you verfied</Text>
+      <Text style={tw`text-lg p-5 text-center text-red-300`}>
+        If you didnt recieve an email make sure to check your spam.
+      </Text>
       <View style={tw`p-5`}>
         <Text>Username</Text>
         <TextInput
