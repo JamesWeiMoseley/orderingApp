@@ -1,9 +1,12 @@
 import React from "react";
-import { Text, View, Button, FlatList, TouchableOpacity, ListItem, ScrollView } from "react-native";
+import { Text, View, Button, FlatList, TouchableOpacity, ListItem, ScrollView, StyleSheet } from "react-native";
 import tw from "tailwind-react-native-classnames";
 import Data from "../../dummyData.json";
 import LunchData from "./lunchData.json";
 import NewLunch from "./NewLunch"
+// import increaseState from "./Cart"
+
+// Flexbox - for error
 
 const Item = ({ lunch, price }) => (
   <View style={tw`p-5 border-solid border-2`}>
@@ -36,6 +39,23 @@ const ViewRes = (props) => {
   //     </View>
   //   )
   // }
+var count = 0
+var totalPrice = 0
+var cartList = []
+var cartItems = {"CartItems":cartList}
+  function increaseCart(food, price){
+    count += 1
+    totalPrice += price
+    var newEntry = {
+      "id": count,
+      "food": food,
+      "price": price
+    }
+    cartList.push(newEntry)
+    // cartItems.push(newEntry)
+    console.log('added item')
+    console.log(cartItems)
+  }
 
   function showLunch() {
     return (
@@ -44,6 +64,7 @@ const ViewRes = (props) => {
           renderItem={({ item }) => {
             return (
               <TouchableOpacity
+              onPress={() =>increaseCart(item.food, item.price)}
               // onPress={() => props.navigation.navigate("View", item)}
               >
                 <Item lunch={item.food} price={item.price} />
@@ -63,7 +84,9 @@ const ViewRes = (props) => {
           renderItem={({ item }) => {
             return (
               <TouchableOpacity
-              // onPress={() => props.navigation.navigate("View", item)}
+              onPress={() =>increaseCart(item)}
+              // onPress={() => props.navigation.navigate("Cart", item)}
+              onPress={() => props.navigation.navigate("Cart", cartItems, count, totalPrice)}
               >
                 <Item lunch={item.food} price={item.price} />
                 <Text />
@@ -104,7 +127,6 @@ const ViewRes = (props) => {
 
 export default ViewRes;
 
-
 {/* <FlatList
           data={Data}
           renderItem={({ item }) => {
@@ -117,4 +139,4 @@ export default ViewRes;
             );
           }}
           keyExtractor={(item) => item.id}
-        ></FlatList> */}
+        ></FlatList>  */}

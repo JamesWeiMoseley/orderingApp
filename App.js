@@ -17,8 +17,13 @@ import RestaurantList from "./src/screens/Customer/RestaurantList";
 import ViewRes from "./src/screens/Customer/ViewRes";
 import Login from "./src/components/Login";
 import Portal from "./src/screens/Portal";
+import Cart from "./src/screens/Customer/Cart";
 
 const Stack = createNativeStackNavigator();
+
+const printS = () => {
+  console.log('printed from app')
+}
 
 function App() {
   return (
@@ -44,6 +49,7 @@ function App() {
         <Stack.Screen name="Signup" component={Signup} />
         <Stack.Screen name="List" component={RestaurantList} />
         <Stack.Screen name="View" component={ViewRes} />
+        <Stack.Screen name="Cart" component={Cart} />
       </Stack.Navigator>
     </NavigationContainer>
   );
