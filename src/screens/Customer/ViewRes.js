@@ -15,6 +15,10 @@ const Item = ({ lunch, price }) => (
   </View>
 );
 
+const PopUp = () => {
+  <Text style={tw`text-red-500 text-2xl text-center`}>Added to your cart</Text>
+};
+
 const ViewRes = (props) => {
   { console.log(props) }
   { console.log(props?.route.params) }
@@ -39,11 +43,11 @@ const ViewRes = (props) => {
   //     </View>
   //   )
   // }
-var count = 0
-var totalPrice = 0
-var cartList = []
-var cartItems = {"CartItems":cartList}
-  function increaseCart(food, price){
+  var count = 0
+  var totalPrice = 0
+  var cartList = []
+  var cartItems = { "CartItems": cartList }
+  function increaseCart(food, price) {
     count += 1
     totalPrice += price
     var newEntry = {
@@ -55,55 +59,63 @@ var cartItems = {"CartItems":cartList}
     // cartItems.push(newEntry)
     console.log('added item')
     console.log(cartItems)
+    // alert(food + " Added to your cart!")
   }
+
 
   function showLunch() {
     return (
       <FlatList
-          data={props.route.params.lunchItems}
-          renderItem={({ item }) => {
-            return (
-              <TouchableOpacity
-              onPress={() =>increaseCart(item.food, item.price)}
-              // onPress={() => props.navigation.navigate("View", item)}
-              >
-                <Item lunch={item.food} price={item.price} />
-                <Text />
-              </TouchableOpacity>
-            );
-          }}
-          keyExtractor={(item) => item.id}
-        ></FlatList>
+        data={props.route.params.lunchItems}
+        renderItem={({ item }) => {
+          return (
+            <TouchableOpacity
+              onPress={() => increaseCart(item.food, item.price)}
+            // onPress={() => props.navigation.navigate("View", item)}
+            >
+              <Item lunch={item.food} price={item.price} />
+              <Text />
+            </TouchableOpacity>
+          );
+        }}
+        keyExtractor={(item) => item.id}
+      ></FlatList>
     )
   }
 
   function showDinner() {
     return (
       <FlatList
-          data={props.route.params.dinnerItems}
-          renderItem={({ item }) => {
-            return (
-              <TouchableOpacity
-              onPress={() =>increaseCart(item)}
+        data={props.route.params.dinnerItems}
+        renderItem={({ item }) => {
+          return (
+            <TouchableOpacity
+              onPress={() => increaseCart(item)}
               // onPress={() => props.navigation.navigate("Cart", item)}
               onPress={() => props.navigation.navigate("Cart", cartItems, count, totalPrice)}
-              >
-                <Item lunch={item.food} price={item.price} />
-                <Text />
-              </TouchableOpacity>
-            );
-          }}
-          keyExtractor={(item) => item.id}
-        ></FlatList>
+            >
+              <Item lunch={item.food} price={item.price} />
+              <Text />
+            </TouchableOpacity>
+          );
+        }}
+        keyExtractor={(item) => item.id}
+      ></FlatList>
     )
   }
 
   return (
 
     <View style={tw`p-10`}>
-
+      <TouchableOpacity
+      onPress={() => props.navigation.navigate("Cart", cartItems)}
+      >
+      <Text style={tw`text-red-500 text-3xl text-right`}>Go to Cart</Text>
+      </TouchableOpacity>
       <Text style={tw`text-red-500 text-3xl`}>{props.route.params.title}</Text>
       <Text>Type: {props.route.params.type}</Text>
+
+      {/* <PopUp /> */}
       <ScrollView>
 
         {/* Lunch Menu Section */}
@@ -118,7 +130,7 @@ var cartItems = {"CartItems":cartList}
         <Text />
         {showDinner()}
         <Text />
-        
+
       </ScrollView>
     </View>
 

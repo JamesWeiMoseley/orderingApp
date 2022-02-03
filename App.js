@@ -21,9 +21,6 @@ import Cart from "./src/screens/Customer/Cart";
 
 const Stack = createNativeStackNavigator();
 
-const printS = () => {
-  console.log('printed from app')
-}
 
 function App() {
   return (
