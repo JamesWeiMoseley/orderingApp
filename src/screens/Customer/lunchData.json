@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "title": "Pollo Loco",
+    "lunch": "Chicken Tacos",
+    "price": "$6.99"
+  },
+  {
+    "id": 1,
+    "title": "Pollo Loco",
+    "lunch": "Beef Tacos",
+    "price": "$8.99"
+  },
+  {
+    "id": 1,
+    "title": "Pollo Loco",
+    "lunch": "Carne Asada Tacos",
+    "price": "$10.99"
+  }
+]
