@@ -1,17 +1,17 @@
 import React from 'react';
-import { Formik } from 'formik';
+import { Formik, FieldArray } from 'formik';
 
 const Basic = () => (
   <div>
     <h1>Menu Creation</h1>
     <Formik
-      initialValues={{ RestaurantName: '', Food: '' }}
+      initialValues={{ RestaurantName: '', Type: '', Lunch: "", Dinner: "", LunchMenu: [], DinnerMenu: [] }}
       validate={values => {
         const errors = {};
         if (!values.RestaurantName) {
           errors.RestaurantName = 'Required';
         } else if (
-          !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.RestaurantName)
+          /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.RestaurantName)
         ) {
           errors.RestaurantName = 'Invalid RestaurantName address';
         }
@@ -38,19 +38,45 @@ const Basic = () => (
           <input
             type="RestaurantName"
             name="RestaurantName"
+            placeholder='Name'
             onChange={handleChange}
             onBlur={handleBlur}
             value={values.RestaurantName}
           />
-          {errors.RestaurantName && touched.RestaurantName && errors.RestaurantName}
-          <input
-            type="Food"
-            name="Food"
+          {/* {errors.RestaurantName && touched.RestaurantName && errors.RestaurantName} */}
+          <input 
+            type="Type"
+            name="Type"
+            placeholder='Type'
             onChange={handleChange}
             onBlur={handleBlur}
-            value={values.Food}
+            value={values.Type}
           />
-          {errors.Food && touched.Food && errors.Food}
+          <input
+            type="Lunch"
+            name="Lunch"
+            placeholder='Lunch'
+            onChange={handleChange}
+            onBlur={handleBlur}
+            value={values.Lunch}
+          />
+
+          <input
+            type="Dinner"
+            name="Dinner"
+            placeholder='Dinner'
+            onChange={handleChange}
+            onBlur={handleBlur}
+            value={values.Dinner}
+          />
+          
+          {/* {errors.Type && touched.Type && errors.Type} */}
+          <button type="add" onPress={() => {
+            values.LunchMenu.push(values.Lunch);
+            values.DinnerMenu.push(values.Dinner);
+          }}>
+            Add
+          </button>
           <button type="submit" disabled={isSubmitting}>
             Submit
           </button>
