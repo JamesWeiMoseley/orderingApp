@@ -18,11 +18,6 @@
         "id": 3,
         "food": "Carne Asada Tacos",
         "price": 12
-      },
-      {
-        "id": 4,
-        "food": "Carne Asada Tacos",
-        "price": 13
       }
     ],
     "dinnerItems": [
