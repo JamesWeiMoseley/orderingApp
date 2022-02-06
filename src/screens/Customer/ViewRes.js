@@ -6,7 +6,7 @@ import LunchData from "./lunchData.json";
 import NewLunch from "./NewLunch"
 // import increaseState from "./Cart"
 
-// Flexbox - for error
+// Flexbox - for error ****************************
 
 const Item = ({ lunch, price }) => (
   <View style={tw`p-5 border-solid border-2`}>
@@ -90,9 +90,9 @@ const ViewRes = (props) => {
         renderItem={({ item }) => {
           return (
             <TouchableOpacity
-              onPress={() => increaseCart(item)}
+              onPress={() => increaseCart(item.food, item.price)}
               // onPress={() => props.navigation.navigate("Cart", item)}
-              onPress={() => props.navigation.navigate("Cart", cartItems, count, totalPrice)}
+              // onPress={() => props.navigation.navigate("Cart", cartItems, count, totalPrice)}
             >
               <Item lunch={item.food} price={item.price} />
               <Text />
