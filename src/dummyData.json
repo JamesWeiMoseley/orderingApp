@@ -4,26 +4,43 @@
     "title": "Pollo Loco",
     "type": "Mexican ",
     "lunchItems": [
-      {"id":1, 
-      "food": "Chicken Tacos",
-      "price": 9},
-      {"id":2, 
+      {
+        "id": 1,
+        "food": "Chicken Tacos",
+        "price": 9
+      },
+      {
+        "id": 2,
         "food": "Beef Tacos",
-        "price": 10},
-      {"id":3, 
+        "price": 10
+      },
+      {
+        "id": 3,
         "food": "Carne Asada Tacos",
-        "price": 12}
+        "price": 12
+      },
+      {
+        "id": 4,
+        "food": "Carne Asada Tacos",
+        "price": 13
+      }
     ],
     "dinnerItems": [
-      {"id":1, 
+      {
+        "id": 1,
         "food": "Chicken Burrito",
-        "price": 12},
-        {"id":2, 
-          "food": "Beef Burrito",
-          "price": 13},
-        {"id":3, 
-          "food": "Carne Asada Burrito",
-          "price": 16}
+        "price": 12
+      },
+      {
+        "id": 2,
+        "food": "Beef Burrito",
+        "price": 13
+      },
+      {
+        "id": 3,
+        "food": "Carne Asada Burrito",
+        "price": 16
+      }
     ]
   },
   {
@@ -31,37 +48,83 @@
     "title": "Pizza Hut",
     "type": "Pizza Place",
     "lunchItems": [
-      {"id":1, 
-      "food": "Garlic Bread",
-      "price": 9},
-      {"id":2, 
+      {
+        "id": 1,
+        "food": "Garlic Bread",
+        "price": 9
+      },
+      {
+        "id": 2,
         "food": "Cheese Pizza",
-        "price": 15},
-      {"id":3, 
+        "price": 15
+      },
+      {
+        "id": 3,
         "food": "Pepperoni Pizza",
-        "price": 16}
+        "price": 16
+      }
     ],
     "dinnerItems": [
-      {"id":1, 
-      "food": "Garlic Bread",
-      "price": 9},
-      {"id":2, 
+      {
+        "id": 1,
+        "food": "Garlic Bread",
+        "price": 9
+      },
+      {
+        "id": 2,
         "food": "Cheese Pizza",
-        "price": 15},
-      {"id":3, 
+        "price": 15
+      },
+      {
+        "id": 3,
         "food": "Pepperoni Pizza",
-        "price": 16}
+        "price": 16
+      }
     ]
   },
   {
     "id": 3,
     "title": "Burger King",
-    "type": "burger place "
+    "type": "Burger Place ",
+    "lunchItems": [
+      {
+        "id": 1,
+        "food": "Hamburger",
+        "price": 5
+      },
+      {
+        "id": 2,
+        "food": "Cheesburger",
+        "price": 6
+      },
+      {
+        "id": 3,
+        "food": "Double Cheesburger",
+        "price": 8
+      }
+    ],
+    "dinnerItems": [
+      {
+        "id": 1,
+        "food": "Hamburger with Fries",
+        "price": 8
+      },
+      {
+        "id": 2,
+        "food": "Cheesebuger with Fries",
+        "price": 9
+      },
+      {
+        "id": 3,
+        "food": "Double Cheeseburger with fries",
+        "price": 11
+      }
+    ]
   },
   {
     "id": 4,
     "title": "Cheesecake factory",
-    "type": "fancy American"
+    "type": "Fancy American"
   },
   {
     "id": 5,

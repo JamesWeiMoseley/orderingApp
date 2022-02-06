@@ -106,7 +106,8 @@ const ViewRes = (props) => {
 
   return (
 
-    <View style={tw`p-10`}>
+    <View style={[tw`p-5`, styles.container]}>
+      <View style={styles.header}>
       <TouchableOpacity
       onPress={() => props.navigation.navigate("Cart", cartItems)}
       >
@@ -114,28 +115,49 @@ const ViewRes = (props) => {
       </TouchableOpacity>
       <Text style={tw`text-red-500 text-3xl`}>{props.route.params.title}</Text>
       <Text>Type: {props.route.params.type}</Text>
-
+      </View>
       {/* <PopUp /> */}
-      <ScrollView>
+      
 
         {/* Lunch Menu Section */}
+        <View style={styles.menuItem}>
         <Text />
         <Text style={tw`text-red-500 text-2xl text-center`}>Lunch Menu</Text>
         <Text />
         {showLunch()}
-
+        </View>
+        
         {/* Dinner Menu Section */}
+        <View style={styles.menuItem2}>
         <Text />
         <Text style={tw`text-red-500 text-2xl text-center`}>Dinner Menu</Text>
         <Text />
         {showDinner()}
         <Text />
-
-      </ScrollView>
+        </View>
     </View>
 
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  header: {
+    flex: 1,
+    flexDirection: "column"
+  },
+  menuItem: {
+    flex: 3,
+    flexDirection: "column"
+  },
+  menuItem2: {
+    flex: 3,
+    flexDirection: "column"
+  },
+});
+
 
 export default ViewRes;
 
