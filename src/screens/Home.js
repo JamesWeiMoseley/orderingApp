@@ -7,7 +7,6 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 function HomeScreen(props) {
   const [name, setName] = useState("");
-  // const [haveUser, setHaveUser] = useState(false);
 
   async function checkUser() {
     try {
@@ -35,10 +34,9 @@ function HomeScreen(props) {
     }
   }
   return (
-    <View style={tw`bg-white h-full w-full`}>
-      <Text>{name}</Text>
+    <View>
       <SafeAreaView style={tw`items-center`}>
-        <Text style={tw`text-2xl p-10`}>Home Screen </Text>
+        <Text style={tw`text-2xl p-5`}>Home Screen </Text>
         {name ? <Text style={tw`text-xl`}>Welcome in {name}</Text> : null}
         {!name ? (
           <Login navigation={props.navigation} route={props.route}></Login>
@@ -51,7 +49,7 @@ function HomeScreen(props) {
             />
           ) : null}
         </View>
-        <View>
+        <View style={tw`pb-10`}>
           {name ? <Button onPress={signOut} title="Log Out"></Button> : null}
         </View>
       </SafeAreaView>
