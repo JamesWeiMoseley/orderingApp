@@ -37,7 +37,7 @@ const Cart = (props) => {
     getTotals()
     return (
         <SafeAreaView style={tw`flex-1`}>
-            <Text style={tw`text-4xl p-10`}>{totalItems} Items in your cart - {"$" + totalPrice}</Text>
+            <Text style={tw`text-4xl p-10`}>{totalItems} Items in your cart : {"$" + totalPrice}</Text>
             {/* <Text>{props.route.params.food} - {props.route.params.price.food}</Text> */}
             <FlatList
                 data={props.route.params.CartItems}

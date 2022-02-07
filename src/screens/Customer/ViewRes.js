@@ -1,9 +1,13 @@
-import React from "react";
-import { Text, View, Button, FlatList, TouchableOpacity, ListItem, ScrollView, StyleSheet } from "react-native";
+import React, { useState } from "react";
+import { Text, View, Button, FlatList, TouchableOpacity, ListItem, ScrollView, StyleSheet, Image, Modal } from "react-native";
+import { Overlay } from 'react-native-elements';
 import tw from "tailwind-react-native-classnames";
 import Data from "../../dummyData.json";
 import LunchData from "./lunchData.json";
 import NewLunch from "./NewLunch"
+import { SafeAreaView } from "react-native-safe-area-context";
+import cartImage from "../Images/cart.jpg"
+
 // import increaseState from "./Cart"
 
 // Flexbox - for error ****************************
@@ -15,9 +19,14 @@ const Item = ({ lunch, price }) => (
   </View>
 );
 
-const PopUp = () => {
-  <Text style={tw`text-red-500 text-2xl text-center`}>Added to your cart</Text>
-};
+// const PopUp = () => {
+//   <Text visible={visible} style={tw`text-red-500 text-2xl text-center`}>Added to your cart</Text>
+// };
+
+
+
+
+
 
 const ViewRes = (props) => {
   { console.log(props) }
@@ -43,19 +52,33 @@ const ViewRes = (props) => {
   //     </View>
   //   )
   // }
+  const [vis, setVisible] = useState(false);
+  var [currItem, setCurrItem] = useState('');
+  const toggleOverlay = (name) => {
+    setCurrItem(name)
+    setVisible(!vis);
+    setTimeout(() => { setVisible(false) }, 1000)
+  }
+  var [counter, setCounter] = useState(0);
   var count = 0
   var totalPrice = 0
-  var cartList = []
-  var cartItems = { "CartItems": cartList }
+  // var cartList = []
+  var [cartList, setCartList] = useState([])
+  // var cartItems = { "CartItems": cartList }
+  var [cartItems, setCart] = useState({ "CartItems": cartList })
   function increaseCart(food, price) {
+    setCounter(counter+=1)
     count += 1
     totalPrice += price
     var newEntry = {
-      "id": count,
+      "id": counter,
       "food": food,
       "price": price
     }
+    
     cartList.push(newEntry)
+    // setCart(cartItems.push(newEntry))
+    // cartList.push(newEntry)
     // cartItems.push(newEntry)
     console.log('added item')
     console.log(cartItems)
@@ -65,12 +88,12 @@ const ViewRes = (props) => {
 
   function showLunch() {
     return (
-      <FlatList
+      <FlatList nestedScrollEnabled
         data={props.route.params.lunchItems}
         renderItem={({ item }) => {
           return (
             <TouchableOpacity
-              onPress={() => increaseCart(item.food, item.price)}
+              onPress={() => {increaseCart(item.food, item.price); toggleOverlay(item.food)}}
             // onPress={() => props.navigation.navigate("View", item)}
             >
               <Item lunch={item.food} price={item.price} />
@@ -85,14 +108,14 @@ const ViewRes = (props) => {
 
   function showDinner() {
     return (
-      <FlatList
+      <FlatList nestedScrollEnabled
         data={props.route.params.dinnerItems}
         renderItem={({ item }) => {
           return (
             <TouchableOpacity
-              onPress={() => increaseCart(item.food, item.price)}
-              // onPress={() => props.navigation.navigate("Cart", item)}
-              // onPress={() => props.navigation.navigate("Cart", cartItems, count, totalPrice)}
+            onPress={() => {increaseCart(item.food, item.price); toggleOverlay(item.food)}}
+            // onPress={() => props.navigation.navigate("Cart", item)}
+            // onPress={() => props.navigation.navigate("Cart", cartItems, count, totalPrice)}
             >
               <Item lunch={item.food} price={item.price} />
               <Text />
@@ -106,36 +129,49 @@ const ViewRes = (props) => {
 
   return (
 
-    <View style={[tw`p-5`, styles.container]}>
+    <SafeAreaView style={[tw`p-5`, styles.container]}>
       <View style={styles.header}>
-      <TouchableOpacity
-      onPress={() => props.navigation.navigate("Cart", cartItems)}
-      >
-      <Text style={tw`text-red-500 text-3xl text-right`}>Go to Cart</Text>
-      </TouchableOpacity>
-      <Text style={tw`text-red-500 text-3xl`}>{props.route.params.title}</Text>
-      <Text>Type: {props.route.params.type}</Text>
+        <View>
+          <Text style={tw`text-red-500 text-3xl`}>{props.route.params.title}</Text>
+          <Text>Type: {props.route.params.type}</Text>
+        </View>
+        <TouchableOpacity
+          onPress={() => props.navigation.navigate("Cart", cartItems)}
+        >
+          {/* <Text style={tw`text-red-500 text-3xl text-right`}>Cart</Text> */}
+          <Image style={styles.cartImage} source={cartImage} alt='cart'></Image>
+        </TouchableOpacity>
       </View>
-      {/* <PopUp /> */}
-      
 
-        {/* Lunch Menu Section */}
-        <View style={styles.menuItem}>
+
+      {/* PopUp */}
+
+      {vis && <Modal transparent={true} style={styles.popUp}>
+      <View style={styles.popUp} >
+      <Text style={tw`text-red-500 text-2xl text-center`}>{currItem}</Text>
+      <Text style={tw`text-red-500 text-2xl text-center`}>Added to your cart</Text>
+      </View>
+      </Modal>}
+
+      {/* Lunch Menu Section */}
+      <View style={styles.menuItem}>
         <Text />
         <Text style={tw`text-red-500 text-2xl text-center`}>Lunch Menu</Text>
         <Text />
         {showLunch()}
-        </View>
-        
-        {/* Dinner Menu Section */}
-        <View style={styles.menuItem2}>
+      </View>
+
+      {/* Dinner Menu Section */}
+      <View style={styles.menuItem2}>
         <Text />
         <Text style={tw`text-red-500 text-2xl text-center`}>Dinner Menu</Text>
         <Text />
         {showDinner()}
         <Text />
-        </View>
-    </View>
+      </View>
+
+
+    </SafeAreaView>
 
   );
 };
@@ -146,7 +182,8 @@ const styles = StyleSheet.create({
   },
   header: {
     flex: 1,
-    flexDirection: "column"
+    flexDirection: "row",
+    justifyContent: "space-between"
   },
   menuItem: {
     flex: 3,
@@ -156,6 +193,18 @@ const styles = StyleSheet.create({
     flex: 3,
     flexDirection: "column"
   },
+  cartImage: {
+    width: 50,
+    height: 50
+  },
+  popUp: {
+    height: 100,
+    width: 200,
+    textAlign: "center",
+    alignContent: "center",
+    marginTop: 100,
+    margin: 100
+  }
 });
 
 
