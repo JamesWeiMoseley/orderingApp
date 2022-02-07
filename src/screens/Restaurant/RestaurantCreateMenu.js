@@ -71,7 +71,7 @@ const Basic = () => (
           />
           
           {/* {errors.Type && touched.Type && errors.Type} */}
-          <button type="add" onPress={() => {
+          <button type="add" onClick={() => {
             values.LunchMenu.push(values.Lunch);
             values.DinnerMenu.push(values.Dinner);
           }}>
