@@ -33,7 +33,16 @@ const rows = [
 const extractKey = ({newRow}) => newRow
 
 export default class App extends Component {
-    
+
+    constructor() {
+    super()
+    this.state = {
+      pigeons: []
+    }
+  }
+  // function to update state which is used by view restaurant
+  // need an alert to say 'added to cart'
+
     renderItem = ({item}) => {
       let items = [];
      
