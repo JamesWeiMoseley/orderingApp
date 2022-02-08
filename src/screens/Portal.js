@@ -32,6 +32,12 @@ function Portal(props) {
           onPress={() => props.navigation.navigate("Home")}
         ></Button>
       </View>
+      <View style={tw`p-0`}>
+        <Button
+          title="Restaurant Form"
+          onPress={() => props.navigation.navigate("RestaurantCreateMenu")}
+        ></Button>
+      </View>
     </View>
   );
 }
