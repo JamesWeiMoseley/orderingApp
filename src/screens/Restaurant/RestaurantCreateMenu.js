@@ -1,19 +1,27 @@
-import React from 'react';
-import { Formik, FieldArray } from 'formik';
+import React from "react";
+import { Formik, FieldArray } from "formik";
+import { Text, Button, TextInput, View } from "react-native";
 
 const Basic = () => (
-  <div>
-    <h1>Menu Creation</h1>
+  <View>
+    <Text>Menu Creation</Text>
     <Formik
-      initialValues={{ RestaurantName: '', Type: '', Lunch: "", Dinner: "", LunchMenu: [], DinnerMenu: [] }}
-      validate={values => {
+      initialValues={{
+        RestaurantName: "",
+        Type: "",
+        Lunch: "",
+        Dinner: "",
+        LunchMenu: [],
+        DinnerMenu: [],
+      }}
+      validate={(values) => {
         const errors = {};
         if (!values.RestaurantName) {
-          errors.RestaurantName = 'Required';
+          errors.RestaurantName = "Required";
         } else if (
           /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.RestaurantName)
         ) {
-          errors.RestaurantName = 'Invalid RestaurantName address';
+          errors.RestaurantName = "Invalid RestaurantName address";
         }
         return errors;
       }}
@@ -28,62 +36,55 @@ const Basic = () => (
         values,
         errors,
         touched,
-        handleChange,
-        handleBlur,
         handleSubmit,
         isSubmitting,
         /* and other goodies */
       }) => (
-        <form onSubmit={handleSubmit}>
-          <input
+        <View onSubmit={handleSubmit}>
+          <TextInput
             type="RestaurantName"
             name="RestaurantName"
-            placeholder='Name'
-            onChange={handleChange}
-            onBlur={handleBlur}
+            placeholder="Name"
             value={values.RestaurantName}
           />
           {/* {errors.RestaurantName && touched.RestaurantName && errors.RestaurantName} */}
-          <input 
+          <TextInput
             type="Type"
             name="Type"
-            placeholder='Type'
-            onChange={handleChange}
-            onBlur={handleBlur}
+            placeholder="Type"
             value={values.Type}
           />
-          <input
+          <TextInput
             type="Lunch"
             name="Lunch"
-            placeholder='Lunch'
-            onChange={handleChange}
-            onBlur={handleBlur}
+            placeholder="Lunch"
             value={values.Lunch}
           />
 
-          <input
+          <TextInput
             type="Dinner"
             name="Dinner"
-            placeholder='Dinner'
-            onChange={handleChange}
-            onBlur={handleBlur}
+            placeholder="Dinner"
             value={values.Dinner}
           />
-          
+
           {/* {errors.Type && touched.Type && errors.Type} */}
-          <button type="add" onClick={() => {
-            values.LunchMenu.push(values.Lunch);
-            values.DinnerMenu.push(values.Dinner);
-          }}>
-            Add
-          </button>
-          <button type="submit" disabled={isSubmitting}>
-            Submit
-          </button>
-        </form>
+          <Button
+            title="add"
+            onClick={() => {
+              values.LunchMenu.push(values.Lunch);
+              values.DinnerMenu.push(values.Dinner);
+            }}
+          >
+            <Text>Add</Text>
+          </Button>
+          <Button title="submit" disabled={isSubmitting}>
+            <Text>Submit </Text>
+          </Button>
+        </View>
       )}
     </Formik>
-  </div>
+  </View>
 );
 
 export default Basic;

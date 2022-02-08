@@ -14,7 +14,7 @@ function Portal(props) {
     checkUser();
     async function checkUser() {
       const user = await Auth.currentAuthenticatedUser();
-      console.log({ user });
+      // console.log({ user });
       setEmail(user.attributes.email);
       setName(user.username);
       setType(user.attributes.locale);
@@ -39,7 +39,6 @@ function Portal(props) {
         ></Button>
       </View>
     </View>
-    
   );
 }
 
