@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Text, View, Button, FlatList, TouchableOpacity, ListItem, ScrollView, StyleSheet, Image, Modal } from "react-native";
-import { Overlay } from 'react-native-elements';
 import tw from "tailwind-react-native-classnames";
 import Data from "../../dummyData.json";
 import LunchData from "./lunchData.json";
