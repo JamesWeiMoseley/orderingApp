@@ -1,89 +1,66 @@
 import React from 'react';
-import { Formik, FieldArray } from 'formik';
+import { Text, Button, FlatList, TextInput, View } from 'react-native';
+import { Formik } from 'formik';
+import tw from "tailwind-react-native-classnames";
 
-const Basic = () => (
-  <div>
-    <h1>Menu Creation</h1>
-    <Formik
-      initialValues={{ RestaurantName: '', Type: '', Lunch: "", Dinner: "", LunchMenu: [], DinnerMenu: [] }}
-      validate={values => {
-        const errors = {};
-        if (!values.RestaurantName) {
-          errors.RestaurantName = 'Required';
-        } else if (
-          /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.RestaurantName)
-        ) {
-          errors.RestaurantName = 'Invalid RestaurantName address';
-        }
-        return errors;
-      }}
-      onSubmit={(values, { setSubmitting }) => {
-        setTimeout(() => {
-          alert(JSON.stringify(values, null, 2));
-          setSubmitting(false);
-        }, 400);
-      }}
-    >
-      {({
-        values,
-        errors,
-        touched,
-        handleChange,
-        handleBlur,
-        handleSubmit,
-        isSubmitting,
-        /* and other goodies */
-      }) => (
-        <form onSubmit={handleSubmit}>
-          <input
-            type="RestaurantName"
-            name="RestaurantName"
-            placeholder='Name'
-            onChange={handleChange}
-            onBlur={handleBlur}
-            value={values.RestaurantName}
-          />
-          {/* {errors.RestaurantName && touched.RestaurantName && errors.RestaurantName} */}
-          <input 
-            type="Type"
-            name="Type"
-            placeholder='Type'
-            onChange={handleChange}
-            onBlur={handleBlur}
-            value={values.Type}
-          />
-          <input
-            type="Lunch"
-            name="Lunch"
-            placeholder='Lunch'
-            onChange={handleChange}
-            onBlur={handleBlur}
-            value={values.Lunch}
-          />
+const RestaurantCreateMenu = props => (
+  <Formik
+    initialValues={{ RestaurantName: '', Type: '', Lunch: "", Dinner: "", LunchMenu: [], DinnerMenu: [] }}
+    onSubmit={values => {
+      console.log(values);
+      alert("Menu sent to the database.");
+       alert(JSON.stringify(values, null, 2));
+    }}
 
-          <input
-            type="Dinner"
-            name="Dinner"
-            placeholder='Dinner'
-            onChange={handleChange}
-            onBlur={handleBlur}
-            value={values.Dinner}
-          />
-          
-          {/* {errors.Type && touched.Type && errors.Type} */}
-          <button type="add" onClick={() => {
+  >
+    {({ handleChange, handleBlur, handleSubmit, values }) => (
+      <View>
+        <TextInput
+          onChangeText={handleChange('RestaurantName')}
+          onBlur={handleBlur('RestaurantName')}
+          placeholder='Restaurant Name'
+          value={values.RestaurantName}
+        />
+        <TextInput
+          onChangeText={handleChange('Type')}
+          onBlur={handleBlur('Type')}
+          placeholder='Type'
+          value={values.Type}
+        />
+        <TextInput
+          onChangeText={handleChange('Lunch')}
+          onBlur={handleBlur('Lunch')}
+          placeholder='Lunch'
+          value={values.Lunch}
+        />
+        <TextInput
+          onChangeText={handleChange('Dinner')}
+          onBlur={handleBlur('Dinner')}
+          placeholder='Dinner'
+          value={values.Dinner}
+        />
+
+        <Button onPress={() => {
             values.LunchMenu.push(values.Lunch);
             values.DinnerMenu.push(values.Dinner);
-          }}>
-            Add
-          </button>
-          <button type="submit" disabled={isSubmitting}>
-            Submit
-          </button>
-        </form>
-      )}
-    </Formik>
-  </div>
+          }} title="Add Item" />
+        <Button onPress={handleSubmit} title="Submit" />
+        
+        <Text style={tw`text-center text-2xl font-bold pt-10`}>Restaurant Name</Text>
+        <Text style={tw`text-center text-2xl`}>{values.RestaurantName}</Text>
+
+        <Text style={tw`text-center text-2xl font-bold pt-10`}>Restaurant Type</Text>
+        <Text style={tw`text-center text-2xl`}>{values.Type}</Text>
+
+        <Text style={tw`text-center text-2xl font-bold pt-10`}>Lunch Menu</Text>
+        <FlatList data={values.LunchMenu} renderItem={({ item }) => (<Text style={tw`text-center text-2xl`}>{item}</Text>)}/>
+
+        <Text style={tw`text-center text-2xl font-bold pt-10`}>Dinner Menu</Text>
+        <FlatList data={values.DinnerMenu} renderItem={({ item }) => (<Text style={tw`text-center text-2xl`}>{item}</Text>)}/>
+      </View>
+    )}
+  </Formik>
+  
 );
 
-export default Basic;
+export default RestaurantCreateMenu;
