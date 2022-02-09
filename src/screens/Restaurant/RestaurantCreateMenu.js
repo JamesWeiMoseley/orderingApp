@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Text, Button, FlatList, TextInput, View } from 'react-native';
 import { Formik } from 'formik';
@@ -45,7 +46,7 @@ const RestaurantCreateMenu = props => (
             values.DinnerMenu.push(values.Dinner);
           }} title="Add Item" />
         <Button onPress={handleSubmit} title="Submit" />
-        
+
         <Text style={tw`text-center text-2xl font-bold pt-10`}>Restaurant Name</Text>
         <Text style={tw`text-center text-2xl`}>{values.RestaurantName}</Text>
 
@@ -60,7 +61,7 @@ const RestaurantCreateMenu = props => (
       </View>
     )}
   </Formik>
-  
+
 );
 
 export default RestaurantCreateMenu;
