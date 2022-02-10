@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "title": "Pollo Loco",
+    "dinner": "Burritos Locos",
+    "price": "$8.99"
+  },
+  {
+    "id": 2,
+    "title": "Pollo Loco",
+    "dinner": "Chicken Fajitas",
+    "price": "$13.99"
+  },
+  {
+    "id": 3,
+    "title": "Pollo Loco",
+    "dinner": "Carne Asada Fajitas",
+    "price": "$16.99"
+  },
+  {
+    "id": 3,
+    "title": "Pizza Hut",
+    "dinner": "Garlic Bread",
+    "price": "$6.99"
+  },
+  {
+    "id": 5,
+    "title": "Pizza Hut",
+    "dinner": "Pepperoni Pizza",
+    "price": "$12.99"
+  },
+  {
+    "id": 6,
+    "title": "Pizza Hut",
+    "dinner": "Cheese Pizza",
+    "price": "$10.99"
+  }
+]
