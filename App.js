@@ -15,14 +15,13 @@ import UserScreen from "./src/screens/Customer";
 import Signup from "./src/screens/Auth/Signup";
 import RestaurantList from "./src/screens/Customer/RestaurantList";
 import ViewRes from "./src/screens/Customer/ViewRes";
-import Login from "./src/components/Login";
+import Login from "./src/components/Auth/Login";
 import Portal from "./src/screens/Portal";
 import Verify from "./src/screens/Auth/Verify";
 import RestaurantCreateMenu from "./src/screens/Restaurant/RestaurantCreateMenu";
 import Cart from "./src/screens/Customer/Cart";
 
 const Stack = createNativeStackNavigator();
-
 
 function App() {
   return (
@@ -49,7 +48,10 @@ function App() {
         <Stack.Screen name="List" component={RestaurantList} />
         <Stack.Screen name="View" component={ViewRes} />
         <Stack.Screen name="Verify" component={Verify} />
-        <Stack.Screen name="RestaurantCreateMenu" component={RestaurantCreateMenu} />
+        <Stack.Screen
+          name="RestaurantCreateMenu"
+          component={RestaurantCreateMenu}
+        />
         <Stack.Screen name="Cart" component={Cart} />
       </Stack.Navigator>
     </NavigationContainer>

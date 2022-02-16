@@ -3,14 +3,6 @@ import { View, Text, Button, TextInput, Alert } from "react-native";
 import tw from "tailwind-react-native-classnames";
 import { Auth } from "aws-amplify";
 
-async function confirmSignUp() {
-  try {
-    await Auth.confirmSignUp(username, code);
-  } catch (error) {
-    console.log("error confirming sign up");
-  }
-}
-
 function Verify(props) {
   const [username, setUsername] = useState("");
   const [code, setCode] = useState("");
