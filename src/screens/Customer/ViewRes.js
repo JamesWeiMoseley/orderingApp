@@ -194,7 +194,8 @@ const styles = StyleSheet.create({
   },
   cartImage: {
     width: 50,
-    height: 50
+    height: 50,
+    borderRadius: 25
   },
   popUp: {
     height: 100,
