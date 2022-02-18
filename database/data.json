@@ -1,0 +1,39 @@
+{
+  "Restaurants": [
+    {
+      "id": 1,
+      "title": "Pollo Loco",
+      "type": "Mexican "
+    },
+    {
+      "id": 2,
+      "title": "Pizza Hut",
+      "type": "Pizza Place"
+    },
+    {
+      "id": 3,
+      "title": "Burger King",
+      "type": "Burger Place "
+    },
+    {
+      "id": 4,
+      "title": "Cheesecake factory",
+      "type": "Fancy American"
+    },
+    {
+      "id": 5,
+      "title": "OutBack Steakhouse",
+      "type": "Steakhouse"
+    },
+    {
+      "id": 6,
+      "title": "Taco Lita",
+      "type": "Mexican"
+    },
+    {
+      "id": 7,
+      "title": "Panda Express",
+      "type": "Asian Fusion"
+    }
+  ]
+}

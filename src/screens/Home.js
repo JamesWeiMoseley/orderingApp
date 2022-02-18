@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { View, Text, Button, TextInput } from "react-native";
 import tw from "tailwind-react-native-classnames";
 import { Auth, Hub } from "aws-amplify";
-import Login from "../components/Login";
+import Login from "../components/Auth/Login";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 function HomeScreen(props) {

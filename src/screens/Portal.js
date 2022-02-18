@@ -3,8 +3,6 @@ import { View, Text, Button, BackHandler } from "react-native";
 import tw from "tailwind-react-native-classnames";
 import { Auth, Hub } from "aws-amplify";
 
-// import { withAuthenticator } from "aws-amplify-react-native";
-
 function Portal(props) {
   const [name, setName] = useState("");
   const [type, setType] = useState("");
@@ -37,6 +35,12 @@ function Portal(props) {
           title="Restaurant Form"
           onPress={() => props.navigation.navigate("RestaurantCreateMenu")}
         ></Button>
+        <View style={tw`pt-2`}>
+          <Button
+            title="View Restaurants in DB"
+            onPress={() => props.navigation.navigate("Restaurant")}
+          ></Button>
+        </View>
       </View>
     </View>
   );
