@@ -5,6 +5,14 @@ input AMPLIFY {
 } # FOR TESTING ONLY!
 type Restaurants @model {
   id: ID!
+  username: String!
   title: String!
   type: String!
+  items: [Item]
+}
+
+type Item @model {
+  id: ID!
+  food: String!
+  price: Int!
 }
