@@ -26,7 +26,6 @@ function Restaurant() {
         const postsResult = await API.graphql(
           graphqlOperation(listRestaurants)
         );
-        console.log(listRestaurants.length);
         setPosts(postsResult.data.listRestaurants.items);
       } catch (e) {
         console.log(e);
