@@ -4,11 +4,21 @@ import { View, Text, Button, TextInput, FlatList } from "react-native";
 import tw from "tailwind-react-native-classnames";
 import { listRestaurants } from "../graphql/queries";
 import * as mutations from "../graphql/mutations";
+import { Auth } from "aws-amplify";
 
 function Restaurant() {
   const [posts, setPosts] = useState([]);
   const [title, setTitle] = useState("");
   const [type, setType] = useState("");
+  const [username, setUsername] = useState("");
+
+  useEffect(() => {
+    checkUser();
+    async function checkUser() {
+      const user = await Auth.currentAuthenticatedUser();
+      setUsername(user.username);
+    }
+  }, []);
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -16,6 +26,7 @@ function Restaurant() {
         const postsResult = await API.graphql(
           graphqlOperation(listRestaurants)
         );
+        console.log(listRestaurants.length);
         setPosts(postsResult.data.listRestaurants.items);
       } catch (e) {
         console.log(e);
@@ -32,6 +43,7 @@ function Restaurant() {
   );
 
   const RestaurantPost = {
+    username: username,
     title: title,
     type: type,
   };
