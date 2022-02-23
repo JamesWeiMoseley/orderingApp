@@ -12,6 +12,7 @@ function Restaurant() {
   const [type, setType] = useState("");
   const [username, setUsername] = useState("");
 
+  // get username
   useEffect(() => {
     checkUser();
     async function checkUser() {
@@ -20,6 +21,7 @@ function Restaurant() {
     }
   }, []);
 
+  // get request
   useEffect(() => {
     const fetchPosts = async () => {
       try {
@@ -34,19 +36,31 @@ function Restaurant() {
     fetchPosts();
   }, []);
 
-  const Item = ({ title, type }) => (
+  //delete
+  const handleDelete = async (id) => {
+    await API.graphql({
+      query: mutations.deleteRestaurants,
+      variables: { input: { id: id } },
+    });
+  };
+
+  // item that takes parameters for display
+  const Item = ({ title, type, id }) => (
     <View style={tw`p-5 border-solid border-2`}>
       <Text style={tw`text-3xl text-blue-500`}>{title}</Text>
       <Text style={tw`text-2xl`}>{type}</Text>
+      <Button title="Delete" onPress={() => handleDelete(id)}></Button>
     </View>
   );
 
+  // schema for post request
   const RestaurantPost = {
     username: username,
     title: title,
     type: type,
   };
 
+  // post request
   const handleSubmit = async () => {
     try {
       const newRestaurant = await API.graphql({
@@ -54,8 +68,7 @@ function Restaurant() {
         variables: { input: RestaurantPost },
       });
       console.log(`${title} and ${type}`);
-      setTitle("");
-      setType("");
+      props.navigation.navigate("Portal");
     } catch (e) {
       console.log(e);
     }
@@ -85,7 +98,7 @@ function Restaurant() {
       <FlatList
         data={posts}
         renderItem={({ item }) => {
-          return <Item title={item.title} type={item.type} />;
+          return <Item title={item.title} type={item.type} id={item.id} />;
         }}
       ></FlatList>
     </View>
