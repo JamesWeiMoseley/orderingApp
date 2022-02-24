@@ -8,11 +8,19 @@ type Restaurants @model {
   username: String!
   title: String!
   type: String!
-  items: [Item]
 }
 
 type Item @model {
   id: ID!
+  restaurant: String!
+  food: String!
+  price: Int!
+}
+
+type Cart @model {
+  id: ID!
+  username: String!
+  restaurant: String!
   food: String!
   price: Int!
 }

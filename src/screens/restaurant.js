@@ -1,12 +1,19 @@
 import { API, graphqlOperation } from "aws-amplify";
 import React, { useEffect, useState } from "react";
-import { View, Text, Button, TextInput, FlatList } from "react-native";
+import {
+  View,
+  Text,
+  Button,
+  TextInput,
+  FlatList,
+  TouchableOpacity,
+} from "react-native";
 import tw from "tailwind-react-native-classnames";
 import { listRestaurants } from "../graphql/queries";
 import * as mutations from "../graphql/mutations";
 import { Auth } from "aws-amplify";
 
-function Restaurant() {
+function Restaurant(props) {
   const [posts, setPosts] = useState([]);
   const [title, setTitle] = useState("");
   const [type, setType] = useState("");
@@ -42,14 +49,19 @@ function Restaurant() {
       query: mutations.deleteRestaurants,
       variables: { input: { id: id } },
     });
+    props.navigation.navigate("Portal");
   };
 
   // item that takes parameters for display
   const Item = ({ title, type, id }) => (
     <View style={tw`p-5 border-solid border-2`}>
-      <Text style={tw`text-3xl text-blue-500`}>{title}</Text>
-      <Text style={tw`text-2xl`}>{type}</Text>
-      <Button title="Delete" onPress={() => handleDelete(id)}></Button>
+      <TouchableOpacity
+        onPress={() => props.navigation.navigate("ViewItem", title)}
+      >
+        <Text style={tw`text-3xl text-blue-500`}>{title}</Text>
+        <Text style={tw`text-2xl`}>{type}</Text>
+        <Button title="Delete" onPress={() => handleDelete(id)}></Button>
+      </TouchableOpacity>
     </View>
   );
 
@@ -74,8 +86,23 @@ function Restaurant() {
     }
   };
 
+  //add menu item
+  const addItem = async () => {
+    const newItem = await API.graphql({
+      query: mutations.createItem,
+      variables: {
+        input: {
+          food: "shrimp",
+          price: 9,
+          restaurant: "Claim Jumper",
+        },
+      },
+    });
+  };
+
   return (
     <View style={tw`bg-gray-400 h-full`}>
+      <Button title="add to pollo loco" onPress={addItem}></Button>
       <View style={tw`mb-5`}>
         <Text style={tw`text-center pt-10`}>Add Restaurant</Text>
         <View style={tw`p-10`}>
