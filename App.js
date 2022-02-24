@@ -19,6 +19,7 @@ import Portal from "./src/screens/Portal";
 import Verify from "./src/screens/Auth/Verify";
 import RestaurantCreateMenu from "./src/screens/Restaurant/RestaurantCreateMenu";
 import Cart from "./src/screens/Customer/Cart";
+import ViewItem from "./src/screens/ViewRes";
 
 const Stack = createNativeStackNavigator();
 
@@ -55,6 +56,7 @@ function App() {
         <Stack.Screen name="Signup" component={Signup} />
         <Stack.Screen name="List" component={RestaurantList} />
         <Stack.Screen name="View" component={ViewRes} />
+        <Stack.Screen name="ViewItem" component={ViewItem} />
         <Stack.Screen name="Verify" component={Verify} />
         <Stack.Screen
           name="RestaurantCreateMenu"
