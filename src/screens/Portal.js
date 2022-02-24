@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, Button, BackHandler } from "react-native";
+import { View, Text, Button, BackHandler, Image } from "react-native";
 import tw from "tailwind-react-native-classnames";
 import { Auth, Hub } from "aws-amplify";
+// import Eating from "../images/undraw_Eating_together_re_us62.png";
 
 function Portal(props) {
   const [name, setName] = useState("");
@@ -20,10 +21,14 @@ function Portal(props) {
   }, []);
 
   return (
-    <View style={{ flex: 1, alignItems: "center" }}>
-      <Text style={tw`text-2xl pt-10`}>Hello {name}</Text>
-      <Text style={tw`text-2xl pt-10`}>{email}</Text>
-      <Text style={tw`text-2xl pt-10`}>You are a {type}</Text>
+    <View style={{ flex: 1, alignItems: "center", backgroundColor: "white" }}>
+      <Image
+        style={{ width: 200, height: 200 }}
+        source={require("../images/undraw_Eating_together_re_ux62.png")}
+      />
+      <Text style={tw`text-2xl pt-5`}>Hello {name}</Text>
+      <Text style={tw`text-2xl pt-5`}>{email}</Text>
+      <Text style={tw`text-2xl pt-5`}>You are a {type}</Text>
       <View style={tw`p-10`}>
         <Button
           title="Back to Home"
@@ -35,6 +40,12 @@ function Portal(props) {
           title="Restaurant Form"
           onPress={() => props.navigation.navigate("RestaurantCreateMenu")}
         ></Button>
+        <View style={tw`pt-2`}>
+          <Button
+            title="View Restaurants in DB"
+            onPress={() => props.navigation.navigate("Restaurant")}
+          ></Button>
+        </View>
       </View>
     </View>
   );
