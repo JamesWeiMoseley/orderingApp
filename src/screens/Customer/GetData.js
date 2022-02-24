@@ -2,7 +2,10 @@ import React, { useState } from "react";
 import { Text, View, Button, FlatList, TouchableOpacity, ListItem, ScrollView, StyleSheet, Image, Modal } from "react-native";
 import tw from "tailwind-react-native-classnames";
 
-var url = 'localhost:8000'
+// To run db server
+// npx json-server --watch database/data.json --port 8000
+
+
 
 const useFetch = (url) => {
     const [data, setData] = useState(null);
@@ -36,8 +39,10 @@ const useFetch = (url) => {
   
       return () => abortCont.abort();
     }, [url]);
-  
+    console.log('data')
+    console.log(data)
     return { data, isLoading, err };
-  };
+      
+};
   
-  console.log(useFetch(url))
+export default useFetch;

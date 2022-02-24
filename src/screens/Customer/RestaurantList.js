@@ -16,7 +16,31 @@ const Item = ({ title, type }) => (
   </View>
 );
 
+// Use this to pull restaurant data from db
+// var Data = []
+// // Pull the Restaurant data from the db
+// const getRestData = async () => {
+//   try {
+//     const response = await fetch(
+//       'http://127.0.0.1:8000/Restaurants'
+//     );
+//     //console.log(response)
+//     const json = await response.json();
+//     console.log(json)
+//     Data = [...json]
+//     return json;
+//   } catch (error) {
+//     console.error('here ' + error);
+//   }
+// };
+// getRestData()
+
+
+//var Data = getRestData()
+
 const RestaurantList = (props) => {
+  console.log('data')
+  console.log({Data})
   return (
     <SafeAreaView style={tw`flex-1`}>
       <Text style={tw`text-4xl p-10`}>Available to Order From</Text>

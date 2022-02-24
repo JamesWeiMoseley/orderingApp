@@ -5,7 +5,10 @@ import Data from "../../dummyData.json";
 import LunchData from "./lunchData.json";
 import NewLunch from "./NewLunch"
 import { SafeAreaView } from "react-native-safe-area-context";
-import cartImage from "../Images/cart.jpg"
+import cartImage from "../Images/cart.jpg";
+import useFetch from "./GetData";
+import { withSSRContext } from "aws-amplify";
+
 
 // import increaseState from "./Cart"
 
@@ -28,9 +31,30 @@ const Item = ({ lunch, price }) => (
 
 
 const ViewRes = (props) => {
+  console.log('props')
   { console.log(props) }
   { console.log(props?.route.params) }
+  {console.log()}
 
+  // const getRestData = async () => {
+  //   try {
+  //     const response = await fetch(
+  //       'http://127.0.0.1:8000/Restaurants'
+  //     );
+  //     console.log(response)
+  //     const json = await response.json();
+  //     console.log(json)
+  //     return json;
+  //   } catch (error) {
+  //     console.error('here ' + error);
+  //   }
+  // };
+  // getRestData()
+  // <View>
+  //   <useFetch
+  //   url='localhost:8000/Restaurants'
+  //   />
+  // </View>
   // function showLunch() {
   //   return (
   //     <View>
@@ -51,13 +75,16 @@ const ViewRes = (props) => {
   //     </View>
   //   )
   // }
+
   const [vis, setVisible] = useState(false);
   var [currItem, setCurrItem] = useState('');
+
   const toggleOverlay = (name) => {
     setCurrItem(name)
     setVisible(!vis);
     setTimeout(() => { setVisible(false) }, 1000)
   }
+
   var [counter, setCounter] = useState(0);
   var count = 0
   var totalPrice = 0
@@ -145,10 +172,12 @@ const ViewRes = (props) => {
 
       {/* PopUp */}
 
-      {vis && <Modal transparent={true} style={styles.popUp}>
+      {vis && <Modal transparent={true} >
       <View style={styles.popUp} >
+      <View style={styles.innerModal} >
       <Text style={tw`text-red-500 text-2xl text-center`}>{currItem}</Text>
       <Text style={tw`text-red-500 text-2xl text-center`}>Added to your cart</Text>
+      </View>
       </View>
       </Modal>}
 
@@ -198,12 +227,24 @@ const styles = StyleSheet.create({
     borderRadius: 25
   },
   popUp: {
-    height: 100,
-    width: 200,
+    width: 250,
     textAlign: "center",
     alignContent: "center",
-    marginTop: 100,
-    margin: 100
+    alignSelf: "center",
+    justifyContent: "center",
+    // marginTop: 100,
+    // margin: 100,
+    flex: 1,
+    flexDirection: "column",
+    // marginVertical: 20,
+  },
+  innerModal: {
+    height: 150,
+    backgroundColor: "white",
+    alignContent: "center",
+    textAlign: "center",
+    justifyContent: "center",
+    borderRadius: 25
   }
 });
 
