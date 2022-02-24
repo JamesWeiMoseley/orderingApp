@@ -6,7 +6,6 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Amplify from "aws-amplify";
 import awsconfig from "./src/aws-exports";
 Amplify.configure(awsconfig);
-// import { withAuthenticator } from "aws-amplify-react-native";
 
 // screens
 import Restaurant from "./src/screens/restaurant";
@@ -32,6 +31,9 @@ function App() {
           component={HomeScreen}
           options={{
             headerLeft: () => null,
+            headerStyle: {
+              backgroundColor: "#fecaca",
+            },
             title: "Online Food Ordering App",
           }}
         />
@@ -39,7 +41,13 @@ function App() {
         <Stack.Screen
           name="Portal"
           component={Portal}
-          options={{ headerLeft: (props) => null, title: "User Portal" }}
+          options={{
+            headerLeft: (props) => null,
+            headerStyle: {
+              backgroundColor: "#fecaca",
+            },
+            title: "User Portal",
+          }}
         />
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Customer" component={UserScreen} />
