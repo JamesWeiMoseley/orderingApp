@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, Button, TextInput } from "react-native";
+import { View, Text, Button, Image } from "react-native";
 import tw from "tailwind-react-native-classnames";
 import { Auth, Hub } from "aws-amplify";
 import Login from "../components/Auth/Login";
 import { SafeAreaView } from "react-native-safe-area-context";
+import "../images/undraw_pizza_sharing.png";
 
 function HomeScreen(props) {
   const [name, setName] = useState("");
@@ -33,8 +34,21 @@ function HomeScreen(props) {
       console.log("error signing out: ", error);
     }
   }
+
+  const Pic = (
+    <Image
+      style={{
+        width: "80%",
+        height: 200,
+        margin: 3,
+      }}
+      source={require("../images/undraw_pizza_sharing.png")}
+    />
+  );
+
   return (
-    <View>
+    <View style={{ flex: 1, alignItems: "center", backgroundColor: "white" }}>
+      {name ? Pic : null}
       <SafeAreaView style={tw`items-center`}>
         <Text style={tw`text-2xl p-5`}>Home Screen </Text>
         {name ? <Text style={tw`text-xl`}>Welcome in {name}</Text> : null}
@@ -49,14 +63,15 @@ function HomeScreen(props) {
             />
           ) : null}
         </View>
-        <View style={tw`pb-10`}>
-          {name ? <Button onPress={signOut} title="Log Out"></Button> : null}
+        <View>
+          {name ? (
+            <View style={tw`pb-20`}>
+              <Button onPress={signOut} title="Log Out"></Button>
+            </View>
+          ) : null}
         </View>
       </SafeAreaView>
-      <Button
-        title="View Available Restaurants"
-        onPress={() => props.navigation.navigate("List")}
-      />
+      {!name ? Pic : null}
     </View>
   );
 }
