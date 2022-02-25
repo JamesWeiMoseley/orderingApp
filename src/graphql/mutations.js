@@ -11,13 +11,6 @@ export const createRestaurants = /* GraphQL */ `
       username
       title
       type
-      items {
-        id
-        food
-        price
-        createdAt
-        updatedAt
-      }
       createdAt
       updatedAt
     }
@@ -33,13 +26,6 @@ export const updateRestaurants = /* GraphQL */ `
       username
       title
       type
-      items {
-        id
-        food
-        price
-        createdAt
-        updatedAt
-      }
       createdAt
       updatedAt
     }
@@ -55,13 +41,6 @@ export const deleteRestaurants = /* GraphQL */ `
       username
       title
       type
-      items {
-        id
-        food
-        price
-        createdAt
-        updatedAt
-      }
       createdAt
       updatedAt
     }
@@ -74,6 +53,7 @@ export const createItem = /* GraphQL */ `
   ) {
     createItem(input: $input, condition: $condition) {
       id
+      restaurant
       food
       price
       createdAt
@@ -88,6 +68,7 @@ export const updateItem = /* GraphQL */ `
   ) {
     updateItem(input: $input, condition: $condition) {
       id
+      restaurant
       food
       price
       createdAt
@@ -102,6 +83,55 @@ export const deleteItem = /* GraphQL */ `
   ) {
     deleteItem(input: $input, condition: $condition) {
       id
+      restaurant
+      food
+      price
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createCart = /* GraphQL */ `
+  mutation CreateCart(
+    $input: CreateCartInput!
+    $condition: ModelCartConditionInput
+  ) {
+    createCart(input: $input, condition: $condition) {
+      id
+      username
+      restaurant
+      food
+      price
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateCart = /* GraphQL */ `
+  mutation UpdateCart(
+    $input: UpdateCartInput!
+    $condition: ModelCartConditionInput
+  ) {
+    updateCart(input: $input, condition: $condition) {
+      id
+      username
+      restaurant
+      food
+      price
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteCart = /* GraphQL */ `
+  mutation DeleteCart(
+    $input: DeleteCartInput!
+    $condition: ModelCartConditionInput
+  ) {
+    deleteCart(input: $input, condition: $condition) {
+      id
+      username
+      restaurant
       food
       price
       createdAt

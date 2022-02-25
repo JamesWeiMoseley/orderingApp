@@ -8,13 +8,6 @@ export const onCreateRestaurants = /* GraphQL */ `
       username
       title
       type
-      items {
-        id
-        food
-        price
-        createdAt
-        updatedAt
-      }
       createdAt
       updatedAt
     }
@@ -27,13 +20,6 @@ export const onUpdateRestaurants = /* GraphQL */ `
       username
       title
       type
-      items {
-        id
-        food
-        price
-        createdAt
-        updatedAt
-      }
       createdAt
       updatedAt
     }
@@ -46,13 +32,6 @@ export const onDeleteRestaurants = /* GraphQL */ `
       username
       title
       type
-      items {
-        id
-        food
-        price
-        createdAt
-        updatedAt
-      }
       createdAt
       updatedAt
     }
@@ -62,6 +41,7 @@ export const onCreateItem = /* GraphQL */ `
   subscription OnCreateItem {
     onCreateItem {
       id
+      restaurant
       food
       price
       createdAt
@@ -73,6 +53,7 @@ export const onUpdateItem = /* GraphQL */ `
   subscription OnUpdateItem {
     onUpdateItem {
       id
+      restaurant
       food
       price
       createdAt
@@ -84,6 +65,46 @@ export const onDeleteItem = /* GraphQL */ `
   subscription OnDeleteItem {
     onDeleteItem {
       id
+      restaurant
+      food
+      price
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onCreateCart = /* GraphQL */ `
+  subscription OnCreateCart {
+    onCreateCart {
+      id
+      username
+      restaurant
+      food
+      price
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateCart = /* GraphQL */ `
+  subscription OnUpdateCart {
+    onUpdateCart {
+      id
+      username
+      restaurant
+      food
+      price
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteCart = /* GraphQL */ `
+  subscription OnDeleteCart {
+    onDeleteCart {
+      id
+      username
+      restaurant
       food
       price
       createdAt
