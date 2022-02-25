@@ -39,6 +39,31 @@ const getTotals = () => {
 }
 
 const Cart = (props) => {
+    const [posts, setPosts] = useState([]);
+    // Get the food items
+    useEffect(() => {
+        const fetchItems = async () => {
+            try {
+                const postsResult = await API.graphql(
+                    graphqlOperation(listItems)
+                );
+                setPosts(postsResult.data.listItems.items);
+                console.log('get results')
+                console.log(postsResult.data.listItems.items)
+            } catch (e) {
+                console.log(e);
+            }
+        };
+        fetchItems();
+    }, []);
+
+    const filterItems = () => {
+        console.log('filter items')
+        for(var i = 0; i < posts.length; i++){
+            console.log(posts[i])
+        }
+    }
+    filterItems()
 
     const removeCartItem = (cart, id, food) => {
         //props.route.params.CartItems
@@ -50,7 +75,7 @@ const Cart = (props) => {
             // console.log(cartData[0].id)
             return o.id === props.route.params.CartItems[0].id;
         })
-        
+
         if (index !== -1) props.route.params.CartItems.splice(index, 1);
         console.log('updated cart')
         console.log(props.route.params.CartItems)
@@ -61,11 +86,11 @@ const Cart = (props) => {
             <Text style={tw`text-4xl text-blue-500`, styles.innerItem}>{title}</Text>
             <Text style={tw`text-2xl`}>${type}</Text>
             <TouchableOpacity
-            onPress={()=> removeCartItem(id)}
+                onPress={() => removeCartItem(id)}
             >
                 <Text>Remove</Text>
             </TouchableOpacity>
-    
+
         </View>
     );
 

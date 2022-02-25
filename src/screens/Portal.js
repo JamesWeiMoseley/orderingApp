@@ -46,6 +46,12 @@ function Portal(props) {
             onPress={() => props.navigation.navigate("Restaurant")}
           ></Button>
         </View>
+        <View style={tw`pt-2`}>
+          <Button
+            title="View Available Restaurants"
+            onPress={() => props.navigation.navigate("List")}
+          />
+        </View>
       </View>
     </View>
   );

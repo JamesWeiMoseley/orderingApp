@@ -32,13 +32,6 @@ export const listRestaurants = /* GraphQL */ `
         username
         title
         type
-        items {
-          id
-          food
-          price
-          createdAt
-          updatedAt
-        }
         createdAt
         updatedAt
       }

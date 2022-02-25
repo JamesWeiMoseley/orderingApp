@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Text, View, Button, FlatList, TouchableOpacity, ListItem, ScrollView, StyleSheet, Image, Modal } from "react-native";
 import tw from "tailwind-react-native-classnames";
 import Data from "../../dummyData.json";
@@ -7,7 +7,8 @@ import NewLunch from "./NewLunch"
 import { SafeAreaView } from "react-native-safe-area-context";
 import cartImage from "../Images/cart.jpg";
 import useFetch from "./GetData";
-import { withSSRContext } from "aws-amplify";
+import { Auth, API, graphqlOperation } from "aws-amplify";
+import { listRestaurants, listItems } from "../../graphql/queries";
 
 
 // import increaseState from "./Cart"
@@ -31,10 +32,55 @@ const Item = ({ lunch, price }) => (
 
 
 const ViewRes = (props) => {
+
+  const [posts, setPosts] = useState([]);
+  const [menuItems, setMenu] = useState([]);
+  // Get the food items
+  useEffect(() => {
+      const fetchItems = async () => {
+          try {
+              const postsResult = await API.graphql(
+                  graphqlOperation(listItems)
+              );
+              setPosts(postsResult.data.listItems.items);
+              console.log('get results')
+              console.log(postsResult.data.listItems.items)
+          } catch (e) {
+              console.log(e);
+          }
+      };
+      fetchItems();
+      setTimeout(() => {
+        console.log('posts')
+        console.log(posts)
+        filterItems();  
+      }, 1500);
+      
+  }, []);
+
+  const filterItems = () => {
+      console.log('filter items')
+      console.log(posts)
+      var tempMenu = []
+      for(var i = 0; i < posts.length; i++){
+          // console.log(posts[i])
+          console.log('ids')
+          console.log(posts[i].id)
+          console.log(props.route.params.id)
+          if(posts[i].id === props.route.params.id){
+            tempMenu.push(posts[i])
+          } 
+      }
+      console.log('menu items')
+      console.log(tempMenu)
+  }
+  //filterItems()
+
+
   console.log('props')
   { console.log(props) }
-  { console.log(props?.route.params) }
-  {console.log()}
+  // { console.log(props?.route.params) }
+  // {console.log()}
 
   // const getRestData = async () => {
   //   try {
@@ -115,17 +161,20 @@ const ViewRes = (props) => {
   function showLunch() {
     return (
       <FlatList nestedScrollEnabled
-        data={props.route.params.lunchItems}
+        data={posts}
         renderItem={({ item }) => {
+          // if(item.id === props.route.params.id){
           return (
+            
             <TouchableOpacity
               onPress={() => {increaseCart(item.food, item.price); toggleOverlay(item.food)}}
             // onPress={() => props.navigation.navigate("View", item)}
             >
-              <Item lunch={item.food} price={item.price} />
+              <Item lunch={item.food} price={item.id} />
               <Text />
             </TouchableOpacity>
           );
+        // }
         }}
         keyExtractor={(item) => item.id}
       ></FlatList>
@@ -135,7 +184,7 @@ const ViewRes = (props) => {
   function showDinner() {
     return (
       <FlatList nestedScrollEnabled
-        data={props.route.params.dinnerItems}
+        data={props.route.params.items}
         renderItem={({ item }) => {
           return (
             <TouchableOpacity

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   SafeAreaView,
   FlatList,
@@ -8,6 +8,9 @@ import {
 } from "react-native";
 import Data from "../../dummyData.json";
 import tw from "tailwind-react-native-classnames";
+import { listRestaurants, listItems } from "../../graphql/queries";
+import * as mutations from "../../graphql/mutations";
+import { Auth, API, graphqlOperation } from "aws-amplify";
 
 const Item = ({ title, type }) => (
   <View style={tw`p-5 border-solid border-2`}>
@@ -39,13 +42,64 @@ const Item = ({ title, type }) => (
 //var Data = getRestData()
 
 const RestaurantList = (props) => {
-  console.log('data')
-  console.log({Data})
+
+  const [posts, setPosts] = useState([]);
+  const [title, setTitle] = useState("");
+  const [type, setType] = useState("");
+  const [username, setUsername] = useState("");
+
+  // get username
+  useEffect(() => {
+    checkUser();
+    async function checkUser() {
+      const user = await Auth.currentAuthenticatedUser();
+      setUsername(user.username);
+    }
+  }, []);
+
+  // get request
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const postsResult = await API.graphql(
+          graphqlOperation(listRestaurants)
+        );
+        setPosts(postsResult.data.listRestaurants.items);
+        console.log(postsResult.data.listRestaurants.items)
+        console.log('posts')
+        console.log(posts)
+      } catch (e) {
+        console.log(e);
+      }
+    };
+    fetchPosts();
+  }, []);
+
+  // get request
+  useEffect(() => {
+    const fetchItems = async () => {
+      try {
+        const postsResult = await API.graphql(
+          graphqlOperation(listItems)
+        );
+        //setPosts(postsResult.data.listItems.items);
+        console.log(postsResult.data.listItems.items)
+      } catch (e) {
+        console.log(e);
+      }
+    };
+    fetchItems();
+  }, []);
+
+
+  // console.log('data')
+  // console.log({Data})
+
   return (
     <SafeAreaView style={tw`flex-1`}>
       <Text style={tw`text-4xl p-10`}>Available to Order From</Text>
       <FlatList
-        data={Data}
+        data={posts}
         renderItem={({ item }) => {
           return (
             <TouchableOpacity
