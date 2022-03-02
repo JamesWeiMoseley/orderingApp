@@ -17,7 +17,7 @@ import ViewRes from "./src/screens/Customer/ViewRes";
 import Login from "./src/components/Auth/Login";
 import Portal from "./src/screens/Portal";
 import Verify from "./src/screens/Auth/Verify";
-import RestaurantCreateMenu from "./src/screens/Restaurant/RestaurantCreateMenu";
+import RestaurantAdd from "./src/screens/Restaurant/RestaurantAdd";
 import Cart from "./src/screens/Customer/Cart";
 import ViewItem from "./src/screens/ViewRes";
 
@@ -59,8 +59,12 @@ function App() {
         <Stack.Screen name="ViewItem" component={ViewItem} />
         <Stack.Screen name="Verify" component={Verify} />
         <Stack.Screen
-          name="RestaurantCreateMenu"
-          component={RestaurantCreateMenu}
+          name="RestaurantAdd"
+          component={RestaurantAdd}
+          options={{
+            headerStyle: { backgroundColor: "#fecaca" },
+            title: "Add the Information",
+          }}
         />
         <Stack.Screen name="Cart" component={Cart} />
       </Stack.Navigator>
