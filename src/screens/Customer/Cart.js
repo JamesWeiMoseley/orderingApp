@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useEffect, useState } from "react";
 import {
     SafeAreaView,
     FlatList,
@@ -9,84 +9,100 @@ import {
 } from "react-native";
 import Data from "../../dummyData.json";
 import tw from "tailwind-react-native-classnames";
+import { listRestaurants, listItems, getCart, listCarts } from "../../graphql/queries";
+import * as mutations from "../../graphql/mutations";
+import { Auth, API, graphqlOperation } from "aws-amplify";
 
-// const removeCartItem = (cart, id) => {
-//     //var cartData = props.route.params.CartItems
-//     console.log(cart)
-//     // var index = cart.findIndex(function (o) {
-//     //     return o.id === id;
-//     // })
-//     // if (index !== -1) cart.splice(index, 1);
-// }
-
-// const Item = ({ id, title, type }) => (
-//     <View style={styles.menuItem}>
-//         <Text style={tw`text-4xl text-blue-500`, styles.innerItem}>{title}</Text>
-//         <Text style={tw`text-2xl`}>${type}</Text>
-//         <TouchableOpacity
-//         onPress={()=> removeCartItem(id)}
-//         >
-//             <Text>Remove</Text>
-//         </TouchableOpacity>
-
-//     </View>
-// );
-
-const getTotals = () => {
-    for (var i = 0; i < props.route.params.CartItems.length(); i++) {
-        console.log(props.route.params.CartItems[i])
-    }
-}
 
 const Cart = (props) => {
+
     const [posts, setPosts] = useState([]);
-    // Get the food items
+    const [cart, setCart] = useState({});
+    const [name, setName] = useState("");
+    const [type, setType] = useState("");
+    const [email, setEmail] = useState("");
+    const [total, setTotal] = useState("");
+    const [cost, setCost] = useState("");
+
+    var userName = ''
     useEffect(() => {
-        const fetchItems = async () => {
-            try {
-                const postsResult = await API.graphql(
-                    graphqlOperation(listItems)
-                );
-                setPosts(postsResult.data.listItems.items);
-                console.log('get results')
-                console.log(postsResult.data.listItems.items)
-            } catch (e) {
-                console.log(e);
+        checkUser();
+        async function checkUser() {
+            const user = await Auth.currentAuthenticatedUser();
+
+            setEmail(user.attributes.email);
+            setName(user.username);
+            setType(user.attributes.locale);
+
+            userName = user.username
+            console.log('user' + userName);
+
+        }
+    }, []);
+
+    // get request
+    var itemsInCart = []
+    var totalItems = 0
+    var totalPrice = 0
+
+    const fetchItems = async () => {
+        console.log('listing carts')
+        try {
+            const postsResult = await API.graphql(
+                graphqlOperation(listCarts)
+            );
+            console.log('cart')
+            setPosts(postsResult.data.listCarts.items);
+            itemsInCart = postsResult.data.listCarts.items
+
+            for (var i = 0; i < itemsInCart.length; i++) {
+                console.log('itemsInCart')
+                console.log(userName)
+                if (itemsInCart[i].username === userName) {
+                    totalItems += 1
+                    totalPrice += itemsInCart[i].price
+                }
             }
-        };
+            console.log('totalItems' + totalItems)
+
+            // ********** use state for totals
+            setTotal(totalItems)
+            setCost(totalPrice)
+            // console.log('items in cart')
+            // console.log(itemsInCart)
+        } catch (e) {
+            console.log(e);
+        }
+    };
+    useEffect(() => {
         fetchItems();
     }, []);
 
-    const filterItems = () => {
-        console.log('filter items')
-        for(var i = 0; i < posts.length; i++){
-            console.log(posts[i])
+
+    const removeCart = async (id) => {
+        console.log('removing cart cart')
+        try {
+            const postsResult = await API.graphql({
+                query: mutations.deleteCart,
+                variables: { input: { id: id } },
+                //graphqlOperation(getCart('Cart - MYUz28n_5krX8FQ05mDa6'}))
+            });
+            setTimeout(() => {
+                fetchItems();
+            }, 1000);
+            
+        } catch (e) {
+            console.log(e);
         }
-    }
-    filterItems()
+    };
 
-    const removeCartItem = (cart, id, food) => {
-        //props.route.params.CartItems
-        // console.log(cartData)
-        var index = props.route.params.CartItems.findIndex(function (o) {
-            // console.log('o')
-            // console.log(o.id)
-            // console.log('cart')
-            // console.log(cartData[0].id)
-            return o.id === props.route.params.CartItems[0].id;
-        })
 
-        if (index !== -1) props.route.params.CartItems.splice(index, 1);
-        console.log('updated cart')
-        console.log(props.route.params.CartItems)
-    }
-
-    const Item = ({ id, title, type }) => (
+    const Item = ({ id, title, type, restuarant }) => (
         <View style={styles.menuItem}>
-            <Text style={tw`text-4xl text-blue-500`, styles.innerItem}>{title}</Text>
-            <Text style={tw`text-2xl`}>${type}</Text>
+            <Text style={tw`text-2xl`}> ${type}</Text>
+            <Text style={tw`text-4xl text-blue-500`, styles.innerItem}>{restuarant + ': ' + title}</Text>
             <TouchableOpacity
-                onPress={() => removeCartItem(id)}
+                onPress={() => removeCart(id)}
             >
                 <Text>Remove</Text>
             </TouchableOpacity>
@@ -94,33 +110,28 @@ const Cart = (props) => {
         </View>
     );
 
-    console.log(props)
-    var totalItems = 0
-    var totalPrice = 0
-    function getTotals() {
 
-        for (var i = 0; i < props.route.params.CartItems.length; i++) {
-            totalItems += 1
-            totalPrice += props.route.params.CartItems[i].price
-            console.log(props.route.params.CartItems[i])
-        }
-    }
-    getTotals()
+
+
+
     return (
         <SafeAreaView style={tw`flex-1`}>
-            <Text style={tw`text-4xl p-10`}>{totalItems} Items in your cart : {"$" + totalPrice}</Text>
-            {/* <Text>{props.route.params.food} - {props.route.params.price.food}</Text> */}
+            <View style={styles.header}>
+                <Text style={tw`text-4xl p-10`}>{total} Items in your cart : {"$" + cost}</Text>
+                {/* <Text>{props.route.params.food} - {props.route.params.price.food}</Text> */}
+                <Text style={tw`text-4xl p-10`}>Checkout</Text>
+            </View>
             <FlatList
-                extraData={props.route.params.CartItems}
-                data={props.route.params.CartItems}
+                //extraData={props.route.params.CartItems}
+                data={posts}
                 renderItem={({ item }) => {
-                    return (
-                        <View >
-                            <Item cart={props.route.params.CartItems} id={item.id} food={item.food} title={item.food} type={item.price} />
-                        </View>
-                        // <Item title={item.food} type={item.price} />
-
-                    );
+                    if (item.username === name) {
+                        return (
+                            <View >
+                                <Item id={item.id} title={item.food} type={item.price} restuarant={item.restaurant} />
+                            </View>
+                        );
+                    }
                 }}
                 keyExtractor={(item) => item.id}
             ></FlatList>
@@ -138,6 +149,11 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         marginVertical: 5,
         alignItems: "center"
+    },
+    header: {
+        flex: 1,
+        flexDirection: "row",
+        justifyContent: "space-between"
     },
     innerItem: {
         marginLeft: 10,

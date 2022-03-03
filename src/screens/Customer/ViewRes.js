@@ -9,6 +9,7 @@ import cartImage from "../Images/cart.jpg";
 import useFetch from "./GetData";
 import { Auth, API, graphqlOperation } from "aws-amplify";
 import { listRestaurants, listItems } from "../../graphql/queries";
+import * as mutations from "../../graphql/mutations";
 
 
 // import increaseState from "./Cart"
@@ -35,52 +36,69 @@ const ViewRes = (props) => {
 
   const [posts, setPosts] = useState([]);
   const [menuItems, setMenu] = useState([]);
+  const [name, setName] = useState("");
+  const [type, setType] = useState("");
+  const [email, setEmail] = useState("");
+
+  // Get the user info
+  useEffect(() => {
+    checkUser();
+    async function checkUser() {
+      const user = await Auth.currentAuthenticatedUser();
+
+
+      setEmail(user.attributes.email);
+      setName(user.username);
+      setType(user.attributes.locale);
+      console.log('user' + user.username);
+    }
+  }, []);
+
   // Get the food items
   useEffect(() => {
-      const fetchItems = async () => {
-          try {
-              const postsResult = await API.graphql(
-                  graphqlOperation(listItems)
-              );
-              setPosts(postsResult.data.listItems.items);
-              console.log('get results')
-              console.log(postsResult.data.listItems.items)
-          } catch (e) {
-              console.log(e);
-          }
-      };
-      fetchItems();
-      setTimeout(() => {
-        console.log('posts')
-        console.log(posts)
-        filterItems();  
-      }, 1500);
-      
+    const fetchItems = async () => {
+      try {
+        const postsResult = await API.graphql(
+          graphqlOperation(listItems)
+        );
+        setPosts(postsResult.data.listItems.items);
+        console.log('get results')
+        console.log(postsResult.data.listItems.items)
+      } catch (e) {
+        console.log(e);
+      }
+    };
+    fetchItems();
+    setTimeout(() => {
+      console.log('posts')
+      console.log(posts)
+      filterItems();
+    }, 1500);
+
   }, []);
 
   const filterItems = () => {
-      console.log('filter items')
-      console.log(posts)
-      var tempMenu = []
-      for(var i = 0; i < posts.length; i++){
-          // console.log(posts[i])
-          console.log('ids')
-          console.log(posts[i].id)
-          console.log(props.route.params.id)
-          if(posts[i].id === props.route.params.id){
-            tempMenu.push(posts[i])
-          } 
+    // console.log('filter items')
+    // console.log(posts)
+    var tempMenu = []
+    for (var i = 0; i < posts.length; i++) {
+      // console.log(posts[i])
+      console.log('ids')
+      console.log(posts[i].id)
+      console.log(props.route.params.id)
+      if (posts[i].id === props.route.params.id) {
+        tempMenu.push(posts[i])
       }
-      console.log('menu items')
-      console.log(tempMenu)
+    }
+    // console.log('menu items')
+    // console.log(tempMenu)
   }
   //filterItems()
 
 
   console.log('props')
   { console.log(props) }
-  // { console.log(props?.route.params) }
-  // {console.log()}
+
 
   // const getRestData = async () => {
   //   try {
@@ -138,8 +156,9 @@ const ViewRes = (props) => {
   var [cartList, setCartList] = useState([])
   // var cartItems = { "CartItems": cartList }
   var [cartItems, setCart] = useState({ "CartItems": cartList })
+
   function increaseCart(food, price) {
-    setCounter(counter+=1)
+    setCounter(counter += 1)
     count += 1
     totalPrice += price
     var newEntry = {
@@ -147,7 +166,7 @@ const ViewRes = (props) => {
       "food": food,
       "price": price
     }
-    
+
     cartList.push(newEntry)
     // setCart(cartItems.push(newEntry))
     // cartList.push(newEntry)
@@ -158,23 +177,59 @@ const ViewRes = (props) => {
   }
 
 
+  //Add item to cart
+  const pushToCart = async (id, foodItem, itemPrice, itemRestaurant) => {
+    console.log('pushing to cart')
+    await API.graphql({
+      query: mutations.createCart,
+      variables: {
+        input: {
+          id: Date.now(),
+          username: name,
+          restaurant: itemRestaurant,
+          food: foodItem,
+          price: itemPrice,
+        }
+      },
+    });
+  };
+
+  //   const updatingCart = async () => {
+  //     console.log('updating cart')
+  //     try {
+  //         const postsResult = await API.graphql({
+  //             query: updateCart,
+  //             //variables: { id: 'Cart-DahKDUqJ3gGaVh-D80UcI' },
+  //             //graphqlOperation(getCart('Cart - MYUz28n_5krX8FQ05mDa6'}))
+  //         });
+  //         //setPosts(postsResult.data.getCart.items);
+  //         console.log('updating cart results')
+  //         console.log(postsResult)
+  //     } catch (e) {
+  //         console.log('updating cart failed')
+  //         console.log(e);
+  //     }
+  // };
+
+
   function showLunch() {
     return (
       <FlatList nestedScrollEnabled
         data={posts}
         renderItem={({ item }) => {
-          // if(item.id === props.route.params.id){
-          return (
-            
-            <TouchableOpacity
-              onPress={() => {increaseCart(item.food, item.price); toggleOverlay(item.food)}}
-            // onPress={() => props.navigation.navigate("View", item)}
-            >
-              <Item lunch={item.food} price={item.id} />
-              <Text />
-            </TouchableOpacity>
-          );
-        // }
+          if (item.restaurant === props.route.params.title) {
+            return (
+
+              <TouchableOpacity
+                // onPress={() => {increaseCart(item.food, item.price); toggleOverlay(item.food)}}
+
+                onPress={() => { pushToCart(item.id, item.food, item.price, item.restaurant); toggleOverlay(item.food) }}
+              >
+                <Item lunch={item.food} price={item.price} />
+                <Text />
+              </TouchableOpacity>
+            );
+          }
         }}
         keyExtractor={(item) => item.id}
       ></FlatList>
@@ -188,7 +243,7 @@ const ViewRes = (props) => {
         renderItem={({ item }) => {
           return (
             <TouchableOpacity
-            onPress={() => {increaseCart(item.food, item.price); toggleOverlay(item.food)}}
+              onPress={() => { increaseCart(item.food, item.price); toggleOverlay(item.food) }}
             // onPress={() => props.navigation.navigate("Cart", item)}
             // onPress={() => props.navigation.navigate("Cart", cartItems, count, totalPrice)}
             >
@@ -222,30 +277,30 @@ const ViewRes = (props) => {
       {/* PopUp */}
 
       {vis && <Modal transparent={true} >
-      <View style={styles.popUp} >
-      <View style={styles.innerModal} >
-      <Text style={tw`text-red-500 text-2xl text-center`}>{currItem}</Text>
-      <Text style={tw`text-red-500 text-2xl text-center`}>Added to your cart</Text>
-      </View>
-      </View>
+        <View style={styles.popUp} >
+          <View style={styles.innerModal} >
+            <Text style={tw`text-red-500 text-2xl text-center`}>{currItem}</Text>
+            <Text style={tw`text-red-500 text-2xl text-center`}>Added to your cart</Text>
+          </View>
+        </View>
       </Modal>}
 
       {/* Lunch Menu Section */}
       <View style={styles.menuItem}>
         <Text />
-        <Text style={tw`text-red-500 text-2xl text-center`}>Lunch Menu</Text>
+        <Text style={tw`text-red-500 text-2xl text-center`}>Menu</Text>
         <Text />
         {showLunch()}
       </View>
 
       {/* Dinner Menu Section */}
-      <View style={styles.menuItem2}>
+      {/* <View style={styles.menuItem2}>
         <Text />
         <Text style={tw`text-red-500 text-2xl text-center`}>Dinner Menu</Text>
         <Text />
         {showDinner()}
         <Text />
-      </View>
+      </View> */}
 
 
     </SafeAreaView>
