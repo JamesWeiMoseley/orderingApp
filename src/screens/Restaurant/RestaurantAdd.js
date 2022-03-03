@@ -41,15 +41,17 @@ const RestaurantAdd = (props) => {
 
   return (
     <View style={{ backgroundColor: "white", height: "100%" }}>
-      <Image
-        style={{
-          width: "100%",
-          height: 200,
-          marginTop: 8,
-          alignContent: "center",
-        }}
-        source={require("../../images/undraw_Tasting.png")}
-      />
+      {resName.length < 1 ? (
+        <Image
+          style={{
+            width: "100%",
+            height: 200,
+            marginTop: 8,
+            alignContent: "center",
+          }}
+          source={require("../../images/undraw_Tasting.png")}
+        />
+      ) : null}
       {resName.length < 1 ? (
         <AddRes
           username={name}

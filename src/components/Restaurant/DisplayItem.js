@@ -22,7 +22,7 @@ const DisplayItem = ({ items, resName, route, navigation }) => {
   const Item = ({ food, price, restaurant, id }) => {
     return (
       <View
-        style={tw`flex bg-gray-200 border-solid mx-5 my-2 border-gray-200 border-2 rounded-md`}
+        style={tw`flex bg-gray-200 border-solid mx-5 my-2 border-gray-200 border-2 rounded-md `}
       >
         <View style={tw`flex-row justify-between ml-3 mr-3`}>
           <Text style={tw`text-xl`}>{food}</Text>
@@ -39,21 +39,28 @@ const DisplayItem = ({ items, resName, route, navigation }) => {
   };
 
   return (
-    <SafeAreaView style={tw`flex-1`}>
-      <FlatList
-        data={items}
-        renderItem={(data) => {
-          if (data.item.restaurant == resName)
-            return (
-              <Item
-                food={data.item.food}
-                price={data.item.price}
-                restaurant={data.item.restaurant}
-                id={data.item.id}
-              ></Item>
-            );
-        }}
-      ></FlatList>
+    <SafeAreaView style={tw`flex-1 pb-5`}>
+      <View
+        style={tw`border-solid mx-2 my-2 border-gray-200 border-2 rounded-md h-full`}
+      >
+        <Text style={tw`m-5 text-2xl text-center`}>
+          Your Current Menu Items:{" "}
+        </Text>
+        <FlatList
+          data={items}
+          renderItem={(data) => {
+            if (data.item.restaurant == resName)
+              return (
+                <Item
+                  food={data.item.food}
+                  price={data.item.price}
+                  restaurant={data.item.restaurant}
+                  id={data.item.id}
+                ></Item>
+              );
+          }}
+        ></FlatList>
+      </View>
     </SafeAreaView>
   );
 };

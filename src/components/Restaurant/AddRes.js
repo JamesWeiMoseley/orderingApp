@@ -31,7 +31,7 @@ const AddRes = (props) => {
   return (
     <View>
       <View style={tw`mb-5`}>
-        <Text style={tw`text-center pt-10`}>Add Restaurant</Text>
+        <Text style={tw`text-center text-xl pt-10`}>Add Your Restaurant</Text>
         <View style={tw`p-10`}>
           <Text>Title</Text>
           <TextInput
