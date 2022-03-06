@@ -5,18 +5,28 @@ import {
   TouchableOpacity,
   FlatList,
   SafeAreaView,
+  Alert,
 } from "react-native";
 import tw from "tailwind-react-native-classnames";
 import { API } from "aws-amplify";
 import * as mutations from "../../graphql/mutations";
+import GetData from "../Customer/GetData";
 
-const DisplayItem = ({ items, resName, route, navigation }) => {
+const DisplayItem = ({ resName, route, navigation }) => {
+  const [clicked, setClicked] = React.useState(false);
+  const { items } = GetData(clicked);
+
   const handleDelete = async (id) => {
-    await API.graphql({
-      query: mutations.deleteItem,
-      variables: { input: { id: id } },
-    });
-    navigation.navigate("Portal");
+    try {
+      await API.graphql({
+        query: mutations.deleteItem,
+        variables: { input: { id: id } },
+      });
+    } catch (e) {
+      console.log(e);
+      Alert.alert("Error");
+    }
+    setClicked(!clicked);
   };
 
   const Item = ({ food, price, restaurant, id }) => {

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Text, Button, TextInput, View, Image } from "react-native";
+import { View, Image } from "react-native";
 import { API, graphqlOperation } from "aws-amplify";
 import AddRes from "../../components/Restaurant/AddRes";
 import * as queries from "../../graphql/queries";
@@ -9,7 +9,6 @@ import DisplayItem from "../../components/Restaurant/DisplayItem";
 const RestaurantAdd = (props) => {
   const name = props.route.params;
   const [resName, setResName] = useState("");
-  const [items, setItems] = useState([]);
 
   useEffect(() => {
     const findRes = async () => {
@@ -23,20 +22,6 @@ const RestaurantAdd = (props) => {
       }
     };
     findRes();
-  }, []);
-
-  useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        const postsResult = await API.graphql(
-          graphqlOperation(queries.listItems)
-        );
-        setItems(postsResult.data.listItems.items);
-      } catch (e) {
-        console.log(e);
-      }
-    };
-    fetchPosts();
   }, []);
 
   return (
@@ -68,7 +53,6 @@ const RestaurantAdd = (props) => {
       )}
       {resName.length > 1 ? (
         <DisplayItem
-          items={items}
           resName={resName}
           route={props.route}
           navigation={props.navigation}
