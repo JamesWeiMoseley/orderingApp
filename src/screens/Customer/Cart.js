@@ -74,14 +74,16 @@ const Cart = (props) => {
   };
 
   const Item = ({ id, title, type, restuarant }) => (
-    <View style={styles.menuItem}>
-      <Text style={tw`text-2xl`}> ${type}</Text>
-      <Text style={(tw`text-4xl text-blue-500`, styles.innerItem)}>
-        {title}
-      </Text>
-      <TouchableOpacity onPress={() => removeCart(id)}>
-        <Text>Remove</Text>
-      </TouchableOpacity>
+    <View style={tw`p-5 border-solid border-2 rounded-md my-1`}>
+      <View style={tw`flex-row justify-between`}>
+        <Text style={tw`text-2xl`}> ${type}</Text>
+        <Text style={(tw`text-4xl text-blue-500`, styles.innerItem)}>
+          {title}
+        </Text>
+        <TouchableOpacity onPress={() => removeCart(id)}>
+          <Text>Remove</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 
@@ -91,11 +93,11 @@ const Cart = (props) => {
         <Text style={tw`text-3xl text-red-400 text-left mt-5`}>{resName}</Text>
       </View>
       <View style={tw`mx-5`}>
-        <Text style={tw`text-3xl w-full mt-5 mb-12`}>
-          {total} Item(s) in your cart : {"$" + cost}
+        <Text style={tw`text-3xl w-full mt-5 mb-5`}>
+          {total} Item(s) in your cart
         </Text>
       </View>
-      <View style={tw`flex-1 m-5`}>
+      <View style={tw`flex-1 m-4`}>
         <FlatList
           data={posts}
           renderItem={({ item }) => {
@@ -115,24 +117,27 @@ const Cart = (props) => {
           keyExtractor={(item) => item.id}
         ></FlatList>
       </View>
+      <View style={tw`mx-5`}>
+        <Text style={tw`text-3xl w-full mt-5 mb-5`}>Total: {"$" + cost}</Text>
+      </View>
       <Button title="Checkout"></Button>
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  menuItem: {
-    height: 100,
-    flex: 1,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    borderColor: "black",
-    borderWidth: 2,
-    marginVertical: 5,
-    alignItems: "center",
-    marginHorizontal: 5,
-    backgroundColor: "#e8e8e8",
-  },
+  // menuItem: {
+  //   height: 100,
+  //   flex: 1,
+  //   flexDirection: "row",
+  //   justifyContent: "space-between",
+  //   // borderColor: "black",
+  //   borderWidth: 2,
+  //   marginVertical: 5,
+  //   alignItems: "center",
+  //   marginHorizontal: 5,
+  //   backgroundColor: "#e8e8e8",
+  // },
   innerItem: {
     fontSize: 25,
     color: "#3b82f6",

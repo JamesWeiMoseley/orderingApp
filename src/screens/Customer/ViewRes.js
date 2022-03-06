@@ -129,7 +129,9 @@ const ViewRes = (props) => {
       {/* Lunch Menu Section */}
       <View style={styles.menuItem}>
         <Text />
-        <Text style={tw`text-red-400 text-2xl text-center`}>Menu</Text>
+        <Text style={tw`text-red-400 text-2xl text-center`}>
+          Click to Add to Cart
+        </Text>
         <Text />
         {posts.length > 1 ? showLunch() : <Text>Loading...</Text>}
       </View>
