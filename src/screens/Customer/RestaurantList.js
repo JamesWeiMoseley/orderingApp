@@ -5,6 +5,7 @@ import {
   Text,
   View,
   TouchableOpacity,
+  Image,
 } from "react-native";
 import tw from "tailwind-react-native-classnames";
 import { listRestaurants } from "../../graphql/queries";
@@ -36,23 +37,15 @@ const RestaurantList = (props) => {
     fetchPosts();
   }, []);
 
-  // // get request
-  // useEffect(() => {
-  //   const fetchItems = async () => {
-  //     try {
-  //       const postsResult = await API.graphql(graphqlOperation(listItems));
-  //     } catch (e) {
-  //       console.log(e);
-  //     }
-  //   };
-  //   fetchItems();
-  // }, []);
-
   return (
     <SafeAreaView style={tw`flex-1 bg-white`}>
-      <Text style={tw`text-3xl p-8 text-red-400`}>
+      <Image
+        style={{ width: "100%", height: 180 }}
+        source={require("../../images/undraw_Street.png")}
+      />
+      {/* <Text style={tw`text-3xl px-8 text-red-400`}>
         Where would you like to order from:
-      </Text>
+      </Text> */}
       {posts.length > 1 ? (
         <FlatList
           data={posts}
