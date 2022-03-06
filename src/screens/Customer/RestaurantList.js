@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   SafeAreaView,
   FlatList,
@@ -6,33 +6,74 @@ import {
   View,
   TouchableOpacity,
 } from "react-native";
-import Data from "../../dummyData.json";
 import tw from "tailwind-react-native-classnames";
+import { listRestaurants } from "../../graphql/queries";
+import { Auth, API, graphqlOperation } from "aws-amplify";
 
 const Item = ({ title, type }) => (
-  <View style={tw`p-5 border-solid border-2`}>
-    <Text style={tw`text-4xl text-blue-500`}>{title}</Text>
+  <View style={tw`p-5 border-solid border-2 mx-3 rounded-md my-1`}>
+    <Text style={tw`text-4xl text-blue-400`}>{title}</Text>
     <Text style={tw`text-2xl`}>{type}</Text>
   </View>
 );
 
 const RestaurantList = (props) => {
+  const [posts, setPosts] = useState([]);
+  const username = props.route.params;
+
+  // get request
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const postsResult = await API.graphql(
+          graphqlOperation(listRestaurants)
+        );
+        setPosts(postsResult.data.listRestaurants.items);
+      } catch (e) {
+        console.log(e);
+      }
+    };
+    fetchPosts();
+  }, []);
+
+  // // get request
+  // useEffect(() => {
+  //   const fetchItems = async () => {
+  //     try {
+  //       const postsResult = await API.graphql(graphqlOperation(listItems));
+  //     } catch (e) {
+  //       console.log(e);
+  //     }
+  //   };
+  //   fetchItems();
+  // }, []);
+
   return (
-    <SafeAreaView style={tw`flex-1`}>
-      <Text style={tw`text-4xl p-10`}>Available to Order From</Text>
-      <FlatList
-        data={Data}
-        renderItem={({ item }) => {
-          return (
-            <TouchableOpacity
-              onPress={() => props.navigation.navigate("View", item)}
-            >
-              <Item title={item.title} type={item.type} />
-            </TouchableOpacity>
-          );
-        }}
-        keyExtractor={(item) => item.id}
-      ></FlatList>
+    <SafeAreaView style={tw`flex-1 bg-white`}>
+      <Text style={tw`text-3xl p-8 text-red-400`}>
+        Where would you like to order from:
+      </Text>
+      {posts.length > 1 ? (
+        <FlatList
+          data={posts}
+          renderItem={({ item }) => {
+            return (
+              <TouchableOpacity
+                onPress={() =>
+                  props.navigation.navigate("View", item, username)
+                }
+              >
+                <Item title={item.title} type={item.type} />
+              </TouchableOpacity>
+            );
+          }}
+          keyExtractor={(item) => item.id}
+        ></FlatList>
+      ) : (
+        <View>
+          <Text>Loading...</Text>
+        </View>
+      )}
     </SafeAreaView>
   );
 };

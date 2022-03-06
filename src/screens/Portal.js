@@ -36,15 +36,17 @@ function Portal(props) {
         ></Button>
       </View>
       <View style={tw`p-0`}>
+        <Text>For Restaurant Owners Only:</Text>
         <Button
           title="View Your Restaurant"
           onPress={() => props.navigation.navigate("RestaurantAdd", name)}
         ></Button>
         <View style={tw`pt-2`}>
+          <Text>For Customers Only:</Text>
           <Button
-            title="View Restaurants in DB"
-            onPress={() => props.navigation.navigate("Restaurant")}
-          ></Button>
+            title="Order Your Food"
+            onPress={() => props.navigation.navigate("List", name)}
+          />
         </View>
       </View>
     </View>

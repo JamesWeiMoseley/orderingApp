@@ -33,7 +33,6 @@ const rows = [
 const extractKey = ({newRow}) => newRow
 
 export default class App extends Component {
-
     constructor() {
     super()
     this.state = {
