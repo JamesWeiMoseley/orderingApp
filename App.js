@@ -54,8 +54,22 @@ function App() {
         <Stack.Screen name="Customer" component={UserScreen} />
         <Stack.Screen name="Restaurant" component={Restaurant} />
         <Stack.Screen name="Signup" component={Signup} />
-        <Stack.Screen name="List" component={RestaurantList} />
-        <Stack.Screen name="View" component={ViewRes} />
+        <Stack.Screen
+          name="List"
+          component={RestaurantList}
+          options={{
+            headerStyle: { backgroundColor: "#fecaca" },
+            title: "Available Restaurants",
+          }}
+        />
+        <Stack.Screen
+          name="View"
+          component={ViewRes}
+          options={{
+            headerStyle: { backgroundColor: "#fecaca" },
+            title: "Menu Items",
+          }}
+        />
         <Stack.Screen name="ViewItem" component={ViewItem} />
         <Stack.Screen name="Verify" component={Verify} />
         <Stack.Screen
@@ -66,7 +80,13 @@ function App() {
             title: "Add the Information",
           }}
         />
-        <Stack.Screen name="Cart" component={Cart} />
+        <Stack.Screen
+          name="Cart"
+          component={Cart}
+          options={{
+            headerStyle: { backgroundColor: "#fecaca" },
+          }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
