@@ -96,3 +96,36 @@ export const listCarts = /* GraphQL */ `
     }
   }
 `;
+export const getOrder = /* GraphQL */ `
+  query GetOrder($id: ID!) {
+    getOrder(id: $id) {
+      id
+      username
+      restaurant
+      price
+      items
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listOrders = /* GraphQL */ `
+  query ListOrders(
+    $filter: ModelOrderFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listOrders(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        username
+        restaurant
+        price
+        items
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;

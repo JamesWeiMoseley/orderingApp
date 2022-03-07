@@ -112,3 +112,42 @@ export const onDeleteCart = /* GraphQL */ `
     }
   }
 `;
+export const onCreateOrder = /* GraphQL */ `
+  subscription OnCreateOrder {
+    onCreateOrder {
+      id
+      username
+      restaurant
+      price
+      items
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateOrder = /* GraphQL */ `
+  subscription OnUpdateOrder {
+    onUpdateOrder {
+      id
+      username
+      restaurant
+      price
+      items
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteOrder = /* GraphQL */ `
+  subscription OnDeleteOrder {
+    onDeleteOrder {
+      id
+      username
+      restaurant
+      price
+      items
+      createdAt
+      updatedAt
+    }
+  }
+`;
