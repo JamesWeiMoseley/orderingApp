@@ -22,7 +22,7 @@ function Login(props) {
 
   return (
     <View>
-      <View style={tw`pt-5 pb-5`}>
+      <View style={tw`pb-5`}>
         <Text>Username</Text>
         <TextInput
           style={tw`border-solid border-2 text-2xl w-full`}

@@ -1,113 +1,150 @@
-import React, { Component } from "react";
+import React, { useEffect, useState } from "react";
 import {
-    SafeAreaView,
-    FlatList,
-    Text,
-    View,
-    TouchableOpacity,
+  SafeAreaView,
+  FlatList,
+  Text,
+  View,
+  TouchableOpacity,
+  StyleSheet,
+  Button,
 } from "react-native";
-import Data from "../../dummyData.json";
 import tw from "tailwind-react-native-classnames";
-
-const Item = ({ title, type }) => (
-    <View style={tw`p-5 border-solid border-2`}>
-        <Text style={tw`text-4xl text-blue-500`}>{title}</Text>
-        <Text style={tw`text-2xl`}>{type}</Text>
-    </View>
-);
-
-const getTotals = () => {
-    for (var i = 0; i < props.route.params.CartItems.length(); i++) {
-        console.log(props.route.params.CartItems[i])
-    }
-}
+import {
+  listRestaurants,
+  listItems,
+  getCart,
+  listCarts,
+} from "../../graphql/queries";
+import * as mutations from "../../graphql/mutations";
+import { Auth, API, graphqlOperation } from "aws-amplify";
 
 const Cart = (props) => {
-    console.log(props)
-    var totalItems = 0
-    var totalPrice = 0
-    function getTotals() {
+  const [posts, setPosts] = useState([]);
+  const [cart, setCart] = useState({});
+  const [name, setName] = useState("");
+  const [type, setType] = useState("");
+  const [email, setEmail] = useState("");
+  const [total, setTotal] = useState("");
+  const [cost, setCost] = useState("");
 
-        for (var i = 0; i < props.route.params.CartItems.length; i++) {
-            totalItems += 1
-            totalPrice += props.route.params.CartItems[i].price
-            console.log(props.route.params.CartItems[i])
+  const username = props.route.params[0];
+  const resName = props.route.params[1];
+
+  // get request
+  var itemsInCart = [];
+  var totalItems = 0;
+  var totalPrice = 0;
+
+  const fetchItems = async () => {
+    try {
+      const postsResult = await API.graphql(graphqlOperation(listCarts));
+      setPosts(postsResult.data.listCarts.items);
+      itemsInCart = postsResult.data.listCarts.items;
+      for (var i = 0; i < itemsInCart.length; i++) {
+        if (
+          itemsInCart[i].username === username &&
+          itemsInCart[i].restaurant === resName
+        ) {
+          totalItems += 1;
+          totalPrice += itemsInCart[i].price;
         }
+      }
+      setTotal(totalItems);
+      setCost(totalPrice);
+    } catch (e) {
+      console.log(e);
     }
-    getTotals()
-    return (
-        <SafeAreaView style={tw`flex-1`}>
-            <Text style={tw`text-4xl p-10`}>{totalItems} Items in your cart - {"$" + totalPrice}</Text>
-            {/* <Text>{props.route.params.food} - {props.route.params.price.food}</Text> */}
-            <FlatList
-                data={props.route.params.CartItems}
-                renderItem={({ item }) => {
-                    return (
-                        <Item title={item.food} type={item.price} />
-                        // <Item title={item.food} type={item.price} />
+  };
+  useEffect(() => {
+    fetchItems();
+  }, []);
 
-                    );
-                }}
-                keyExtractor={(item) => item.id}
-            ></FlatList>
-        </SafeAreaView>
-    );
+  const removeCart = async (id) => {
+    console.log("removing cart cart");
+    try {
+      const postsResult = await API.graphql({
+        query: mutations.deleteCart,
+        variables: { input: { id: id } },
+      });
+      fetchItems();
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const Item = ({ id, title, type, restuarant }) => (
+    <View style={tw`p-5 border-solid border-2 rounded-md my-1`}>
+      <View style={tw`flex-row justify-between`}>
+        <Text style={tw`text-2xl`}> ${type}</Text>
+        <Text style={(tw`text-4xl text-blue-500`, styles.innerItem)}>
+          {title}
+        </Text>
+        <TouchableOpacity onPress={() => removeCart(id)}>
+          <Text>Remove</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
+
+  return (
+    <SafeAreaView style={tw`flex-1 bg-white`}>
+      <View style={tw`text-3xl text-red-400 m-5`}>
+        <Text style={tw`text-3xl text-red-400 text-left mt-5`}>{resName}</Text>
+      </View>
+      <View style={tw`mx-5`}>
+        <Text style={tw`text-3xl w-full mt-5 mb-5`}>
+          {total} Item(s) in your cart
+        </Text>
+      </View>
+      <View style={tw`flex-1 m-4`}>
+        <FlatList
+          data={posts}
+          extraData={cost}
+          renderItem={(data) => {
+            if (
+              data.item.username === username &&
+              data.item.restaurant == resName
+            ) {
+              return (
+                <View>
+                  <Item
+                    id={data.item.id}
+                    title={data.item.food}
+                    type={data.item.price}
+                    restuarant={data.item.restaurant}
+                  />
+                </View>
+              );
+            }
+          }}
+          // keyExtractor={(item) => item.id}
+        ></FlatList>
+      </View>
+      <View style={tw`mx-5`}>
+        <Text style={tw`text-3xl w-full mt-5 mb-5`}>Total: {"$" + cost}</Text>
+      </View>
+      <Button title="Checkout"></Button>
+    </SafeAreaView>
+  );
 };
 
+const styles = StyleSheet.create({
+  // menuItem: {
+  //   height: 100,
+  //   flex: 1,
+  //   flexDirection: "row",
+  //   justifyContent: "space-between",
+  //   // borderColor: "black",
+  //   borderWidth: 2,
+  //   marginVertical: 5,
+  //   alignItems: "center",
+  //   marginHorizontal: 5,
+  //   backgroundColor: "#e8e8e8",
+  // },
+  innerItem: {
+    fontSize: 25,
+    color: "#3b82f6",
+  },
+});
+
 export default Cart;
-
-
-// class Cart extends Component {
-
-//     //     constructor() {
-//     //     super()
-//     //     this.state = {
-//     //       pigeons: []
-//     //     }
-//     //   }
-//     state = {
-//         cartItems: [],
-//     }
-
-//     increaseState = ()=> {
-//         console.log('increased state')
-//     }
-
-//     // function to update state which is used by view restaurant
-//     // need an alert to say 'added to cart'
-
-//     renderItem = ({ item }) => {
-
-//         let items = [];
-
-//         if (item.newRow && item.id === 1) {
-//             items = item.newRow.map(row => {
-//                 return <Text>{row.text}</Text>
-//             })
-//         }
-
-//         return (
-//             <View>
-
-//                 {items}
-
-//             </View>
-//         )
-//     }
-
-
-//     render() {
-//         return (
-//             <View style={styles.container}>
-//                 <FlatList
-//                     style={styles.container}
-//                     data={rows}
-//                     renderItem={this.renderItem}
-//                     keyExtractor={extractKey}
-//                 />
-//             </View>
-//         );
-//     }
-// }
-
-// export default Cart;
