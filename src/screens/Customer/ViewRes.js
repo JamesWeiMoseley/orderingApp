@@ -25,8 +25,8 @@ const Item = ({ lunch, price }) => (
 
 const ViewRes = (props) => {
   const [posts, setPosts] = useState([]);
-  const username = props.route.params.username;
-  const resName = props.route.params.title;
+  const username = props.route.params[0];
+  const resName = props.route.params[1].title;
 
   // Get the food items
   useEffect(() => {
@@ -98,11 +98,11 @@ const ViewRes = (props) => {
       <View style={styles.header}>
         <View>
           <Text style={tw`text-red-400 text-3xl`}>
-            {props.route.params.title}
+            {props.route.params[1].title}
           </Text>
         </View>
         <TouchableOpacity
-          onPress={() => props.navigation.navigate("Cart", props.route.params)}
+          onPress={() => props.navigation.navigate("Cart", [username, resName])}
         >
           <Image style={styles.cartImage} source={cartImage} alt="cart"></Image>
           <Text style={tw`text-center`}>Cart</Text>

@@ -27,8 +27,8 @@ const Cart = (props) => {
   const [total, setTotal] = useState("");
   const [cost, setCost] = useState("");
 
-  const username = props.route.params.username;
-  const resName = props.route.params.title;
+  const username = props.route.params[0];
+  const resName = props.route.params[1];
 
   // get request
   var itemsInCart = [];
@@ -40,7 +40,6 @@ const Cart = (props) => {
       const postsResult = await API.graphql(graphqlOperation(listCarts));
       setPosts(postsResult.data.listCarts.items);
       itemsInCart = postsResult.data.listCarts.items;
-
       for (var i = 0; i < itemsInCart.length; i++) {
         if (
           itemsInCart[i].username === username &&
@@ -100,21 +99,25 @@ const Cart = (props) => {
       <View style={tw`flex-1 m-4`}>
         <FlatList
           data={posts}
-          renderItem={({ item }) => {
-            if (item.username === username && item.restaurant == resName) {
+          extraData={cost}
+          renderItem={(data) => {
+            if (
+              data.item.username === username &&
+              data.item.restaurant == resName
+            ) {
               return (
                 <View>
                   <Item
-                    id={item.id}
-                    title={item.food}
-                    type={item.price}
-                    restuarant={item.restaurant}
+                    id={data.item.id}
+                    title={data.item.food}
+                    type={data.item.price}
+                    restuarant={data.item.restaurant}
                   />
                 </View>
               );
             }
           }}
-          keyExtractor={(item) => item.id}
+          // keyExtractor={(item) => item.id}
         ></FlatList>
       </View>
       <View style={tw`mx-5`}>

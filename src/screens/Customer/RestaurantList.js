@@ -43,9 +43,6 @@ const RestaurantList = (props) => {
         style={{ width: "100%", height: 180 }}
         source={require("../../images/undraw_Street.png")}
       />
-      {/* <Text style={tw`text-3xl px-8 text-red-400`}>
-        Where would you like to order from:
-      </Text> */}
       {posts.length > 1 ? (
         <FlatList
           data={posts}
@@ -53,7 +50,7 @@ const RestaurantList = (props) => {
             return (
               <TouchableOpacity
                 onPress={() =>
-                  props.navigation.navigate("View", item, username)
+                  props.navigation.navigate("View", [username, item])
                 }
               >
                 <Item title={item.title} type={item.type} />
