@@ -40,6 +40,12 @@ function Portal(props) {
           title="View Your Restaurant"
           onPress={() => props.navigation.navigate("RestaurantAdd", name)}
         ></Button>
+        <View style={tw`mt-1`}>
+          <Button
+            title="View Your Orders"
+            onPress={() => props.navigation.navigate("Orders", name)}
+          ></Button>
+        </View>
         <View style={tw`pt-2`}>
           <Text>For Customers Only:</Text>
           <Button

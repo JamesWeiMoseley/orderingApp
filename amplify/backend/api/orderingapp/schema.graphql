@@ -24,3 +24,11 @@ type Cart @model {
   food: String!
   price: Int!
 }
+
+type Order @model {
+  id: ID!
+  username: String!
+  restaurant: String!
+  price: Int!
+  items: AWSJSON
+}

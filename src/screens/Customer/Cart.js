@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   Button,
+  Alert,
 } from "react-native";
 import tw from "tailwind-react-native-classnames";
 import {
@@ -20,12 +21,10 @@ import { Auth, API, graphqlOperation } from "aws-amplify";
 
 const Cart = (props) => {
   const [posts, setPosts] = useState([]);
-  const [cart, setCart] = useState({});
-  const [name, setName] = useState("");
-  const [type, setType] = useState("");
-  const [email, setEmail] = useState("");
+  const [cart, setCart] = useState([]);
   const [total, setTotal] = useState("");
   const [cost, setCost] = useState("");
+  const [ids, setIds] = useState([]);
 
   const username = props.route.params[0];
   const resName = props.route.params[1];
@@ -47,6 +46,8 @@ const Cart = (props) => {
         ) {
           totalItems += 1;
           totalPrice += itemsInCart[i].price;
+          setCart((cart) => [...cart, itemsInCart[i].food]);
+          setIds((id) => [...id, itemsInCart[i].id]);
         }
       }
       setTotal(totalItems);
@@ -86,6 +87,37 @@ const Cart = (props) => {
     </View>
   );
 
+  const handleCheckout = async () => {
+    try {
+      const newOrder = await API.graphql({
+        query: mutations.createOrder,
+        variables: {
+          input: {
+            username: username,
+            restaurant: resName,
+            price: cost,
+            items: JSON.stringify(cart),
+          },
+        },
+      });
+    } catch (e) {
+      console.log(e);
+    }
+
+    for (let i = 0; i < ids.length; i++) {
+      try {
+        await API.graphql({
+          query: mutations.deleteCart,
+          variables: { input: { id: ids[i] } },
+        });
+        Alert.alert("Your order has been placed");
+        props.navigation.navigate("Portal");
+      } catch (e) {
+        console.log(e);
+      }
+    }
+  };
+
   return (
     <SafeAreaView style={tw`flex-1 bg-white`}>
       <View style={tw`text-3xl text-red-400 m-5`}>
@@ -123,24 +155,12 @@ const Cart = (props) => {
       <View style={tw`mx-5`}>
         <Text style={tw`text-3xl w-full mt-5 mb-5`}>Total: {"$" + cost}</Text>
       </View>
-      <Button title="Checkout"></Button>
+      <Button title="Checkout" onPress={handleCheckout}></Button>
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  // menuItem: {
-  //   height: 100,
-  //   flex: 1,
-  //   flexDirection: "row",
-  //   justifyContent: "space-between",
-  //   // borderColor: "black",
-  //   borderWidth: 2,
-  //   marginVertical: 5,
-  //   alignItems: "center",
-  //   marginHorizontal: 5,
-  //   backgroundColor: "#e8e8e8",
-  // },
   innerItem: {
     fontSize: 25,
     color: "#3b82f6",

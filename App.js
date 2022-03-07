@@ -20,6 +20,7 @@ import Verify from "./src/screens/Auth/Verify";
 import RestaurantAdd from "./src/screens/Restaurant/RestaurantAdd";
 import Cart from "./src/screens/Customer/Cart";
 import ViewItem from "./src/screens/ViewRes";
+import Orders from "./src/screens/Customer/Order";
 
 const Stack = createNativeStackNavigator();
 
@@ -85,6 +86,14 @@ function App() {
           component={Cart}
           options={{
             headerStyle: { backgroundColor: "#fecaca" },
+          }}
+        />
+        <Stack.Screen
+          name="Orders"
+          component={Orders}
+          options={{
+            headerStyle: { backgroundColor: "#fecaca" },
+            title: "Your Orders",
           }}
         />
       </Stack.Navigator>
