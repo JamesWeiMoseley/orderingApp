@@ -1,5 +1,8 @@
 # orderingApp
 
+APK File For Demo: https://expo.dev/artifacts/c5708f73-aa92-47c2-a942-671a10f11559 ![image](https://user-images.githubusercontent.com/61338213/161625246-5704ab08-3e14-43df-a51d-d739926e0e7a.png)
+---
+
 https://docs.expo.dev/
 
 Installation Instructions
