@@ -30,11 +30,9 @@ Download the Expo App on your phone to view app.
 Option to install XCode(only for mac) or android studio.
 
 ---
-
 How to run fake database:
 npx json-server --watch database/data.json --port 8000
 
----
 
 Images
 ---
