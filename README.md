@@ -3,6 +3,7 @@
 https://docs.expo.dev/
 
 Installation Instructions
+---
 We will be using expo for this react native application.
 Note: I'm using normal Mac OS so might be different for you.
 Also please dont use yarn.
