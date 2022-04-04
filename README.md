@@ -5,12 +5,12 @@ APK File For Demo: https://expo.dev/artifacts/c5708f73-aa92-47c2-a942-671a10f115
 
 Images
 ---
-![image](https://user-images.githubusercontent.com/61338213/161625458-ed0470a7-21fb-407b-8dff-2659ea3680b7.png)
-![image](https://user-images.githubusercontent.com/61338213/161625490-775d657d-5a12-4ec0-b3bd-610afe69c88c.png)
-![image](https://user-images.githubusercontent.com/61338213/161625508-08241759-e52f-4c12-82e3-5e57f5cb13b2.png)
-![image](https://user-images.githubusercontent.com/61338213/161625523-87814d15-84a9-4fd7-a096-8221398f69f7.png)
-![image](https://user-images.githubusercontent.com/61338213/161625540-160e6b31-17d4-478d-998a-016912fc2c15.png)
-![image](https://user-images.githubusercontent.com/61338213/161625554-f8cbb971-9a02-4817-8b7b-3a9b503ab42a.png)
+![image](https://user-images.githubusercontent.com/61338213/161626137-d11e7904-d54f-4547-ae0d-24a273bdd8a1.png)
+![image](https://user-images.githubusercontent.com/61338213/161626150-208ff527-68a2-4721-ae19-3570ab422b56.png)
+![image](https://user-images.githubusercontent.com/61338213/161626166-e92274fc-01ad-4cb7-bf86-9f74b8eb1730.png)
+![image](https://user-images.githubusercontent.com/61338213/161626180-a1f71608-cb1e-4016-b1d1-b947112802f7.png)
+![image](https://user-images.githubusercontent.com/61338213/161626190-f4846ef7-3d37-44ee-8c68-d9a64239750a.png)
+![image](https://user-images.githubusercontent.com/61338213/161626197-51670fc2-ec86-4e86-9a9a-f67ae9601b6f.png)
 
 
 https://docs.expo.dev/
