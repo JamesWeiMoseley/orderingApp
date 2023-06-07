@@ -1,4 +1,8 @@
 # orderingApp
+Introducing Panda Go, the ultimate mobile food ordering app designed to revolutionize how you order and pick up meals. With Panda Go, you can conveniently place food orders online and pick them up hassle-free when ready. Say goodbye to phone calls, website browsing, and relying on delivery services. Panda Go provides a centralized platform where users can explore restaurants, browse menus, and place orders with a few taps. Built with React Native, Amazon Cognito, DynamoDB, AWS, AppSync, and Tailwind, Panda Go offers a seamless user experience. Streamline operations and improve customer satisfaction for restaurant managers. Embrace the future of food ordering with Panda Go. Download the app now and experience the convenience and efficiency it brings.
+
+
+
 
 APK File For Demo: https://expo.dev/artifacts/c5708f73-aa92-47c2-a942-671a10f11559 
 ---
